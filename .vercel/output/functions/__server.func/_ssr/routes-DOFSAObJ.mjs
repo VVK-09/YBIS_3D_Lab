@@ -1,10 +1,10 @@
 import { i as __toESM } from "../_runtime.mjs";
 import { _ as require_react, g as require_jsx_runtime } from "../_libs/@react-three/drei+[...].mjs";
 import { t as create } from "../_libs/zustand.mjs";
-import { a as Play, c as MapPinned, d as Compass, f as ChevronUp, i as RotateCcw, l as LayoutGrid, m as ArrowRight, n as Users, o as Phone, p as ChevronDown, s as Maximize2, t as X, u as Footprints } from "../_libs/lucide-react.mjs";
+import { a as Play, c as MapPinned, d as Compass, f as ChevronUp, g as ArrowRight, h as ChevronDown, i as RotateCcw, l as LayoutGrid, m as ChevronLeft, n as Users, o as Phone, p as ChevronRight, s as Maximize2, t as X, u as Footprints } from "../_libs/lucide-react.mjs";
 import { n as clsx, t as cva } from "../_libs/class-variance-authority+clsx.mjs";
 import { t as twMerge } from "../_libs/tailwind-merge.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-Di3RY4ER.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-DOFSAObJ.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var __defProp = Object.defineProperty;
@@ -839,46 +839,168 @@ function Hud() {
 			]
 		}),
 		mode === "walk" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Joystick, {}),
-		zone && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("aside", {
-			className: "pointer-events-auto absolute inset-x-3 bottom-18 z-30 mx-auto max-w-lg rounded-xl border border-border bg-navy/92 p-4 backdrop-blur-md sm:inset-x-auto sm:right-4 sm:bottom-20 sm:w-[360px]",
-			children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "mb-3 flex items-start justify-between gap-3",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "flex items-center gap-3",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							className: "grid size-10 place-items-center rounded-md font-display text-sm font-semibold text-fg",
-							style: { background: zone.color },
-							children: String(zone.id).padStart(2, "0")
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-							className: "text-[10px] tracking-[0.18em] text-sky uppercase",
-							children: ["Zone ", zone.id]
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
-							className: "font-display text-base font-semibold text-fg",
-							children: zone.name
-						})] })]
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-						type: "button",
-						className: "grid size-9 place-items-center rounded-[10px] text-fg-muted hover:bg-white/8 hover:text-fg",
-						onClick: closeCard,
-						"aria-label": "Close",
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "size-4" })
-					})]
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					className: "text-sm leading-relaxed text-fg-muted",
-					children: zone.blurb
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
-					className: "mt-3 space-y-1.5",
-					children: zone.equipment.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
-						className: "flex gap-2 text-xs text-fg",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MapPinned, { className: "mt-0.5 size-3.5 shrink-0 text-electric" }), item]
-					}, item))
-				})
-			]
+		zone && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ZoneDetailCard, {
+			zone,
+			onClose: closeCard
 		})
 	] });
+}
+function ZoneDetailCard({ zone, onClose }) {
+	const [expanded, setExpanded] = (0, import_react.useState)(false);
+	const select = useLab((s) => s.select);
+	const pulseEquip = useLab((s) => s.pulseEquip);
+	(0, import_react.useEffect)(() => {
+		setExpanded(false);
+	}, [zone.id]);
+	const prevZone = (e) => {
+		e.stopPropagation();
+		const prevId = zone.id === 1 ? ZONES.length : zone.id - 1;
+		select(prevId);
+	};
+	const nextZone = (e) => {
+		e.stopPropagation();
+		const nextId = zone.id % ZONES.length + 1;
+		select(nextId);
+	};
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("aside", {
+		className: "pointer-events-auto absolute inset-x-2.5 bottom-16 z-30 mx-auto max-w-lg overflow-hidden rounded-2xl border border-white/15 bg-[#092244]/90 shadow-[0_20px_50px_rgba(0,0,0,0.55),0_1px_0_rgba(255,255,255,0.12)_inset] backdrop-blur-2xl transition-all duration-300 select-none sm:inset-x-auto sm:right-4 sm:bottom-20 sm:w-[380px]",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "absolute top-0 inset-x-4 h-[2px] rounded-full transition-all duration-500",
+				style: {
+					background: `linear-gradient(90deg, transparent, ${zone.color}, transparent)`,
+					boxShadow: `0 0 14px ${zone.color}`
+				}
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "p-2.5 sm:p-3.5",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex items-center justify-between gap-2",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex min-w-0 flex-1 cursor-pointer items-center gap-2.5 active:opacity-85",
+							onClick: () => setExpanded(!expanded),
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "grid size-8 sm:size-9 shrink-0 place-items-center rounded-xl font-display text-xs font-black text-white shadow-md transition-transform active:scale-95",
+								style: {
+									background: `linear-gradient(135deg, ${zone.color}, #092244)`,
+									boxShadow: `0 0 12px ${zone.color}60`
+								},
+								children: String(zone.id).padStart(2, "0")
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "min-w-0 flex-1",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "flex items-center gap-1.5 leading-none",
+									children: [
+										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+											className: "text-[10px] font-bold tracking-wider text-sky uppercase",
+											children: ["Zone ", zone.id]
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											className: "text-white/20 text-[9px]",
+											children: "•"
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+											className: "text-[10px] font-medium text-slate-300",
+											children: [zone.equipment.length, " Assets"]
+										})
+									]
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+									className: "mt-0.5 truncate font-display text-xs sm:text-sm font-bold text-white",
+									children: zone.name
+								})]
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex items-center gap-0.5 rounded-lg border border-white/10 bg-white/5 p-0.5 shrink-0",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+								type: "button",
+								onClick: prevZone,
+								className: "grid size-6 sm:size-7 place-items-center rounded-md text-slate-300 hover:bg-white/10 hover:text-white transition-colors active:scale-90",
+								title: "Previous Zone",
+								"aria-label": "Previous Zone",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronLeft, { className: "size-3.5" })
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+								type: "button",
+								onClick: nextZone,
+								className: "grid size-6 sm:size-7 place-items-center rounded-md text-slate-300 hover:bg-white/10 hover:text-white transition-colors active:scale-90",
+								title: "Next Zone",
+								"aria-label": "Next Zone",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronRight, { className: "size-3.5" })
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+							type: "button",
+							onClick: () => setExpanded(!expanded),
+							className: `flex items-center gap-1 rounded-lg border px-2 py-1 text-[11px] font-semibold transition-all shrink-0 active:scale-95 ${expanded ? "border-sky-400/40 bg-sky-500/15 text-sky-300" : "border-white/10 bg-white/5 text-slate-300 hover:border-white/20 hover:text-white"}`,
+							title: expanded ? "Minimize card" : "View specifications",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: expanded ? "Less" : "Specs" }), expanded ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronDown, { className: "size-3.5 text-sky-400" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronUp, { className: "size-3.5" })]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							type: "button",
+							onClick: onClose,
+							className: "grid size-7 place-items-center rounded-lg border border-white/10 bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white transition-colors shrink-0 active:scale-90",
+							"aria-label": "Close Zone View",
+							title: "Close",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "size-3.5" })
+						})
+					]
+				}), !expanded && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "mt-1.5 flex items-center justify-between gap-2 border-t border-white/8 pt-1.5 cursor-pointer sm:hidden",
+					onClick: () => setExpanded(true),
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "flex items-center gap-1.5 min-w-0",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "size-1.5 rounded-full bg-sky-400 animate-pulse shrink-0" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "truncate text-[10px] text-slate-300 font-medium",
+							children: zone.equipment[0]
+						})]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+						className: "text-[10px] text-sky-400 font-semibold shrink-0 flex items-center gap-0.5",
+						children: [
+							"+",
+							zone.equipment.length - 1,
+							" more"
+						]
+					})]
+				})]
+			}),
+			expanded && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "border-t border-white/10 bg-black/25 p-3 sm:p-4 max-h-[46vh] sm:max-h-[360px] overflow-y-auto scrollbar-none transition-all",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-xs sm:text-[13px] leading-relaxed text-slate-300 font-normal",
+					children: zone.blurb
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "mt-3",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "mb-2 flex items-center justify-between",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+							className: "text-[10px] font-bold tracking-wider text-sky-400 uppercase",
+							children: [
+								"Zone Hardware & Equipment (",
+								zone.equipment.length,
+								")"
+							]
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "text-[9px] text-slate-400",
+							children: "Tap to highlight in 3D"
+						})]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "flex flex-wrap gap-1.5 sm:gap-2",
+						children: zone.equipment.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+							type: "button",
+							onClick: () => pulseEquip(item),
+							className: "group flex items-center gap-1.5 rounded-lg border border-white/12 bg-white/[0.06] px-2.5 py-1 text-[11px] font-medium text-slate-200 backdrop-blur-sm transition-all hover:border-sky-400/60 hover:bg-sky-500/15 hover:text-white active:scale-95 text-left",
+							title: `Highlight ${item}`,
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MapPinned, { className: "size-3 text-sky-400 shrink-0 group-hover:scale-110 transition-transform" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "truncate max-w-[240px] sm:max-w-[280px]",
+								children: item
+							})]
+						}, item))
+					})]
+				})]
+			})
+		]
+	});
 }
 function Stat({ icon, label }) {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -1005,7 +1127,7 @@ function Joystick() {
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-8 rounded-full bg-white/20" })
 	});
 }
-var CanvasApp = (0, import_react.lazy)(() => import("./canvas-BM10rigC.mjs"));
+var CanvasApp = (0, import_react.lazy)(() => import("./canvas-BB7MBJin.mjs"));
 function Experience() {
 	const [mounted, setMounted] = (0, import_react.useState)(false);
 	const phase = useLab((s) => s.phase);

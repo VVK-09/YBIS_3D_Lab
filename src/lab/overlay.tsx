@@ -2,6 +2,8 @@ import { useEffect, useRef, useState, type PointerEvent, type ReactNode } from "
 import {
   ArrowRight,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   ChevronUp,
   Compass,
   Footprints,
@@ -302,42 +304,183 @@ function Hud() {
       {mode === "walk" && <Joystick />}
 
       {/* Zone Detail Card */}
-      {zone && (
-        <aside className="pointer-events-auto absolute inset-x-3 bottom-18 z-30 mx-auto max-w-lg rounded-xl border border-border bg-navy/92 p-4 backdrop-blur-md sm:inset-x-auto sm:right-4 sm:bottom-20 sm:w-[360px]">
-          <div className="mb-3 flex items-start justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <span
-                className="grid size-10 place-items-center rounded-md font-display text-sm font-semibold text-fg"
-                style={{ background: zone.color }}
-              >
-                {String(zone.id).padStart(2, "0")}
-              </span>
-              <div>
-                <p className="text-[10px] tracking-[0.18em] text-sky uppercase">Zone {zone.id}</p>
-                <h2 className="font-display text-base font-semibold text-fg">{zone.name}</h2>
+      {zone && <ZoneDetailCard zone={zone} onClose={closeCard} />}
+    </>
+  );
+}
+
+function ZoneDetailCard({ zone, onClose }: { zone: (typeof ZONES)[number]; onClose: () => void }) {
+  const [expanded, setExpanded] = useState(false);
+  const select = useLab((s) => s.select);
+  const pulseEquip = useLab((s) => s.pulseEquip);
+
+  // Auto-collapse when switching zones so mobile 3D view stays clear and cinematic
+  useEffect(() => {
+    setExpanded(false);
+  }, [zone.id]);
+
+  const prevZone = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const prevId = zone.id === 1 ? ZONES.length : zone.id - 1;
+    select(prevId);
+  };
+
+  const nextZone = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const nextId = (zone.id % ZONES.length) + 1;
+    select(nextId);
+  };
+
+  return (
+    <aside
+      className="pointer-events-auto absolute inset-x-2.5 bottom-16 z-30 mx-auto max-w-lg overflow-hidden rounded-2xl border border-white/15 bg-[#092244]/90 shadow-[0_20px_50px_rgba(0,0,0,0.55),0_1px_0_rgba(255,255,255,0.12)_inset] backdrop-blur-2xl transition-all duration-300 select-none sm:inset-x-auto sm:right-4 sm:bottom-20 sm:w-[380px]"
+    >
+      {/* Top glowing accent line matching the zone's signature color */}
+      <div
+        className="absolute top-0 inset-x-4 h-[2px] rounded-full transition-all duration-500"
+        style={{
+          background: `linear-gradient(90deg, transparent, ${zone.color}, transparent)`,
+          boxShadow: `0 0 14px ${zone.color}`,
+        }}
+      />
+
+      {/* Compact Interactive Header Bar (Never blocks view in mobile) */}
+      <div className="p-2.5 sm:p-3.5">
+        <div className="flex items-center justify-between gap-2">
+          {/* Zone Badge + Title Info (Tap anywhere to expand/collapse) */}
+          <div
+            className="flex min-w-0 flex-1 cursor-pointer items-center gap-2.5 active:opacity-85"
+            onClick={() => setExpanded(!expanded)}
+          >
+            <span
+              className="grid size-8 sm:size-9 shrink-0 place-items-center rounded-xl font-display text-xs font-black text-white shadow-md transition-transform active:scale-95"
+              style={{
+                background: `linear-gradient(135deg, ${zone.color}, #092244)`,
+                boxShadow: `0 0 12px ${zone.color}60`,
+              }}
+            >
+              {String(zone.id).padStart(2, "0")}
+            </span>
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-1.5 leading-none">
+                <span className="text-[10px] font-bold tracking-wider text-sky uppercase">
+                  Zone {zone.id}
+                </span>
+                <span className="text-white/20 text-[9px]">•</span>
+                <span className="text-[10px] font-medium text-slate-300">
+                  {zone.equipment.length} Assets
+                </span>
               </div>
+              <h2 className="mt-0.5 truncate font-display text-xs sm:text-sm font-bold text-white">
+                {zone.name}
+              </h2>
             </div>
+          </div>
+
+          {/* Quick Zone Navigator Arrows (< and >) */}
+          <div className="flex items-center gap-0.5 rounded-lg border border-white/10 bg-white/5 p-0.5 shrink-0">
             <button
               type="button"
-              className="grid size-9 place-items-center rounded-[10px] text-fg-muted hover:bg-white/8 hover:text-fg"
-              onClick={closeCard}
-              aria-label="Close"
+              onClick={prevZone}
+              className="grid size-6 sm:size-7 place-items-center rounded-md text-slate-300 hover:bg-white/10 hover:text-white transition-colors active:scale-90"
+              title="Previous Zone"
+              aria-label="Previous Zone"
             >
-              <X className="size-4" />
+              <ChevronLeft className="size-3.5" />
+            </button>
+            <button
+              type="button"
+              onClick={nextZone}
+              className="grid size-6 sm:size-7 place-items-center rounded-md text-slate-300 hover:bg-white/10 hover:text-white transition-colors active:scale-90"
+              title="Next Zone"
+              aria-label="Next Zone"
+            >
+              <ChevronRight className="size-3.5" />
             </button>
           </div>
-          <p className="text-sm leading-relaxed text-fg-muted">{zone.blurb}</p>
-          <ul className="mt-3 space-y-1.5">
-            {zone.equipment.map((item) => (
-              <li key={item} className="flex gap-2 text-xs text-fg">
-                <MapPinned className="mt-0.5 size-3.5 shrink-0 text-electric" />
-                {item}
-              </li>
-            ))}
-          </ul>
-        </aside>
+
+          {/* Expand/Collapse Toggle Button */}
+          <button
+            type="button"
+            onClick={() => setExpanded(!expanded)}
+            className={`flex items-center gap-1 rounded-lg border px-2 py-1 text-[11px] font-semibold transition-all shrink-0 active:scale-95 ${
+              expanded
+                ? "border-sky-400/40 bg-sky-500/15 text-sky-300"
+                : "border-white/10 bg-white/5 text-slate-300 hover:border-white/20 hover:text-white"
+            }`}
+            title={expanded ? "Minimize card" : "View specifications"}
+          >
+            <span>{expanded ? "Less" : "Specs"}</span>
+            {expanded ? (
+              <ChevronDown className="size-3.5 text-sky-400" />
+            ) : (
+              <ChevronUp className="size-3.5" />
+            )}
+          </button>
+
+          {/* Close Button */}
+          <button
+            type="button"
+            onClick={onClose}
+            className="grid size-7 place-items-center rounded-lg border border-white/10 bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white transition-colors shrink-0 active:scale-90"
+            aria-label="Close Zone View"
+            title="Close"
+          >
+            <X className="size-3.5" />
+          </button>
+        </div>
+
+        {/* Collapsed State Single-Line Highlight (Mobile teaser) */}
+        {!expanded && (
+          <div
+            className="mt-1.5 flex items-center justify-between gap-2 border-t border-white/8 pt-1.5 cursor-pointer sm:hidden"
+            onClick={() => setExpanded(true)}
+          >
+            <div className="flex items-center gap-1.5 min-w-0">
+              <span className="size-1.5 rounded-full bg-sky-400 animate-pulse shrink-0" />
+              <p className="truncate text-[10px] text-slate-300 font-medium">
+                {zone.equipment[0]}
+              </p>
+            </div>
+            <span className="text-[10px] text-sky-400 font-semibold shrink-0 flex items-center gap-0.5">
+              +{zone.equipment.length - 1} more
+            </span>
+          </div>
+        )}
+      </div>
+
+      {/* Expanded Specifications & Equipment (Drawer reveal) */}
+      {expanded && (
+        <div className="border-t border-white/10 bg-black/25 p-3 sm:p-4 max-h-[46vh] sm:max-h-[360px] overflow-y-auto scrollbar-none transition-all">
+          <p className="text-xs sm:text-[13px] leading-relaxed text-slate-300 font-normal">
+            {zone.blurb}
+          </p>
+
+          <div className="mt-3">
+            <div className="mb-2 flex items-center justify-between">
+              <span className="text-[10px] font-bold tracking-wider text-sky-400 uppercase">
+                Zone Hardware & Equipment ({zone.equipment.length})
+              </span>
+              <span className="text-[9px] text-slate-400">Tap to highlight in 3D</span>
+            </div>
+            <div className="flex flex-wrap gap-1.5 sm:gap-2">
+              {zone.equipment.map((item) => (
+                <button
+                  key={item}
+                  type="button"
+                  onClick={() => pulseEquip(item)}
+                  className="group flex items-center gap-1.5 rounded-lg border border-white/12 bg-white/[0.06] px-2.5 py-1 text-[11px] font-medium text-slate-200 backdrop-blur-sm transition-all hover:border-sky-400/60 hover:bg-sky-500/15 hover:text-white active:scale-95 text-left"
+                  title={`Highlight ${item}`}
+                >
+                  <MapPinned className="size-3 text-sky-400 shrink-0 group-hover:scale-110 transition-transform" />
+                  <span className="truncate max-w-[240px] sm:max-w-[280px]">{item}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
       )}
-    </>
+    </aside>
   );
 }
 

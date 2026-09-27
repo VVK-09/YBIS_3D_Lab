@@ -1,7 +1,7 @@
 import { i as __toESM } from "../_runtime.mjs";
 import { _ as require_react, a as useCursor, c as useThree, d as MeshStandardMaterial, f as RepeatWrapping, g as require_jsx_runtime, i as Billboard, m as Vector3, n as OrbitControls, o as Canvas, p as SRGBColorSpace, r as useTexture, s as useFrame, t as ContactShadows, u as CanvasTexture } from "../_libs/@react-three/drei+[...].mjs";
-import { a as TABLE_LAYOUT, i as ROOM, n as useLab, o as ZONES, r as COLLIDERS } from "./routes-Di3RY4ER.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/canvas-BM10rigC.js
+import { a as TABLE_LAYOUT, i as ROOM, n as useLab, o as ZONES, r as COLLIDERS } from "./routes-DOFSAObJ.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/canvas-BB7MBJin.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var NAVY = "#092244";
