@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "AVP Innovation Hub",
+      "hasCanvas": false,
+      "bodyTextLen": 128,
+      "bodyTextHash": "273d068b919fd20425747907bf79d7454569be69afebdb58981de68fbbe2c5a9",
+      "bodyTextPrefix": "VIRTUAL LAB TOUR Welcome to AVP Innovation Hub Learn • Build • E",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "AVP Innovation Hub",
+      "hasCanvas": false,
+      "bodyTextLen": 128,
+      "bodyTextHash": "273d068b919fd20425747907bf79d7454569be69afebdb58981de68fbbe2c5a9",
+      "bodyTextPrefix": "VIRTUAL LAB TOUR Welcome to AVP Innovation Hub Learn • Build • E",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}

@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #092244;
+  --color-ink: #0b1e3d;
+  --color-blue: #1e63d6;
+  --color-electric: #0ea5e9;
+  --color-sky: #38bdf8;
+  --color-paper: #f4f6f9;
+  --color-muted: #5b6578;
+  --color-wood: #c4a574;
+  --color-fg: #f4f7fb;
+  --color-fg-muted: #b7c4d6;
+  --color-surface: rgba(9, 34, 68, 0.78);
+  --color-border: rgba(255, 255, 255, 0.14);
+  --font-display: "Outfit", "Segoe UI", sans-serif;
+  --font-sans: "Plus Jakarta Sans", "Segoe UI", sans-serif;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 28px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --motion-quick: 150ms;
+  --motion-fast: 250ms;
+  --motion-slow: 400ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background: #092244;
+    color: var(--color-fg);
+    overflow: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  /* Global scrollbar concealment */
+  ::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+    display: none;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
