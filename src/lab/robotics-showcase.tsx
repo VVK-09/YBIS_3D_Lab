@@ -595,9 +595,6 @@ export function Zone4RoboticsShowcase() {
           );
         })}
       </group>
-
-      {/* Overhead Spot Downlight for Dramatic Stage Illumination */}
-      <pointLight position={[0, 1.6, 0.1]} color="#e0f2fe" intensity={1.2} distance={3.2} />
     </group>
   );
 }

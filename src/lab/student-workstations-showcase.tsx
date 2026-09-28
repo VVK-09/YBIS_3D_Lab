@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { TABLE_LAYOUT } from "./config";
 
@@ -102,14 +102,45 @@ function makeIdeScreenTexture() {
   });
 }
 
+function InstancedBatch({
+  geometry,
+  material,
+  matrices,
+  castShadow = false,
+  receiveShadow = false,
+}: {
+  geometry: THREE.BufferGeometry;
+  material: THREE.Material;
+  matrices: THREE.Matrix4[];
+  castShadow?: boolean;
+  receiveShadow?: boolean;
+}) {
+  const ref = useRef<THREE.InstancedMesh>(null);
+  useEffect(() => {
+    if (!ref.current) return;
+    for (let i = 0; i < matrices.length; i++) {
+      ref.current.setMatrixAt(i, matrices[i]);
+    }
+    ref.current.instanceMatrix.needsUpdate = true;
+  }, [matrices]);
+
+  return (
+    <instancedMesh
+      ref={ref}
+      args={[geometry, material, matrices.length]}
+      castShadow={castShadow}
+      receiveShadow={receiveShadow}
+    />
+  );
+}
+
 // -------------------------------------------------------------
-// COMPLETE ZONE 7 WORKSTATIONS COMPONENT
+// OPTIMIZED ZONE 7 WORKSTATIONS (INSTANCED MESHES)
 // -------------------------------------------------------------
 
 export function Zone7WorkstationsShowcase({ laptop }: { laptop?: THREE.Texture }) {
   const ideTex = useMemo(() => makeIdeScreenTexture(), []);
 
-  // Shared reusable materials for high rendering performance across 10 tables
   const materials = useMemo(
     () => ({
       tableTop: new THREE.MeshStandardMaterial({ color: "#ebd5b3", roughness: 0.45 }),
@@ -129,132 +160,312 @@ export function Zone7WorkstationsShowcase({ laptop }: { laptop?: THREE.Texture }
       chairSeat: new THREE.MeshStandardMaterial({ color: "#1e293b", roughness: 0.85 }),
       chairChrome: new THREE.MeshStandardMaterial({ color: "#cbd5e1", metalness: 0.9, roughness: 0.15 }),
       breadboardMat: new THREE.MeshStandardMaterial({ color: "#f8fafc", roughness: 0.4 }),
-      trayMat: new THREE.MeshStandardMaterial({ color: "#0284c7", roughness: 0.3 }),
+      esp32Mat: new THREE.MeshStandardMaterial({ color: "#0f172a" }),
+      esp32LedMat: new THREE.MeshStandardMaterial({ color: "#22c55e", emissive: "#22c55e", emissiveIntensity: 1 }),
     }),
     [ideTex],
   );
 
+  const geometries = useMemo(
+    () => ({
+      tableTop: new THREE.BoxGeometry(1.36, 0.04, 0.72),
+      tableTrim: new THREE.BoxGeometry(1.38, 0.015, 0.74),
+      steelLegs: new THREE.CylinderGeometry(0.02, 0.02, 0.72, 8),
+      powerRail: new THREE.BoxGeometry(1.24, 0.03, 0.06),
+      powerHub: new THREE.BoxGeometry(0.9, 0.025, 0.08),
+      ledStrip: new THREE.BoxGeometry(0.04, 0.005, 0.012),
+      laptopChassis: new THREE.BoxGeometry(0.26, 0.01, 0.18),
+      laptopTrackpad: new THREE.PlaneGeometry(0.08, 0.05),
+      laptopScreenLid: new THREE.BoxGeometry(0.26, 0.16, 0.008),
+      laptopScreenMat: new THREE.PlaneGeometry(0.24, 0.14),
+      breadboardMat: new THREE.BoxGeometry(0.16, 0.01, 0.06),
+      esp32: new THREE.BoxGeometry(0.05, 0.006, 0.028),
+      esp32Led: new THREE.SphereGeometry(0.004, 6, 6),
+      chairSeat: new THREE.BoxGeometry(0.38, 0.05, 0.38),
+      chairMesh: new THREE.BoxGeometry(0.36, 0.42, 0.03),
+      chairChrome: new THREE.CylinderGeometry(0.022, 0.025, 0.44, 8),
+      chairBase: new THREE.CylinderGeometry(0.18, 0.18, 0.02, 8),
+    }),
+    [],
+  );
+
+  const batches = useMemo(() => {
+    const tableTopM: THREE.Matrix4[] = [];
+    const tableTrimM: THREE.Matrix4[] = [];
+    const steelLegsM: THREE.Matrix4[] = [];
+    const powerRailM: THREE.Matrix4[] = [];
+    const powerHubM: THREE.Matrix4[] = [];
+    const ledStripM: THREE.Matrix4[] = [];
+    const laptopChassisM: THREE.Matrix4[] = [];
+    const laptopTrackpadM: THREE.Matrix4[] = [];
+    const laptopScreenLidM: THREE.Matrix4[] = [];
+    const laptopScreenMatM: THREE.Matrix4[] = [];
+    const breadboardM: THREE.Matrix4[] = [];
+    const esp32M: THREE.Matrix4[] = [];
+    const esp32LedM: THREE.Matrix4[] = [];
+    const chairSeatM: THREE.Matrix4[] = [];
+    const chairMeshM: THREE.Matrix4[] = [];
+    const chairChromeM: THREE.Matrix4[] = [];
+    const chairBaseM: THREE.Matrix4[] = [];
+
+    const dummy = new THREE.Object3D();
+    const subDummy = new THREE.Object3D();
+
+    for (const t of TABLE_LAYOUT) {
+      // 1. Table Top
+      dummy.position.set(t.x, 0.74, t.z);
+      dummy.rotation.set(0, 0, 0);
+      dummy.scale.set(1, 1, 1);
+      dummy.updateMatrix();
+      tableTopM.push(dummy.matrix.clone());
+
+      // Trim
+      dummy.position.set(t.x, 0.725, t.z);
+      dummy.updateMatrix();
+      tableTrimM.push(dummy.matrix.clone());
+
+      // 4 Legs
+      for (const lx of [-0.62, 0.62]) {
+        for (const lz of [-0.3, 0.3]) {
+          dummy.position.set(t.x + lx, 0.36, t.z + lz);
+          dummy.updateMatrix();
+          steelLegsM.push(dummy.matrix.clone());
+        }
+      }
+
+      // Cable crossbar
+      dummy.position.set(t.x, 0.68, t.z);
+      dummy.updateMatrix();
+      powerRailM.push(dummy.matrix.clone());
+
+      // Power rail hub
+      dummy.position.set(t.x, 0.77, t.z);
+      dummy.updateMatrix();
+      powerHubM.push(dummy.matrix.clone());
+
+      // LED strip status lights
+      for (const px of [-0.25, 0, 0.25]) {
+        dummy.position.set(t.x + px, 0.785, t.z);
+        dummy.updateMatrix();
+        ledStripM.push(dummy.matrix.clone());
+      }
+
+      // 3 Laptops
+      const lapX = [-0.38, 0, 0.38];
+      for (let j = 0; j < 3; j++) {
+        const x = lapX[j];
+        const rotY = (j - 1) * 0.08;
+
+        // Base
+        dummy.position.set(t.x + x, 0.76 + 0.006, t.z + 0.12);
+        dummy.rotation.set(0, rotY, 0);
+        dummy.updateMatrix();
+        laptopChassisM.push(dummy.matrix.clone());
+
+        // Trackpad (rotated flat on deck)
+        dummy.position.set(t.x + x, 0.76 + 0.011, t.z + 0.12 + 0.04);
+        dummy.rotation.set(-Math.PI / 2, 0, rotY);
+        dummy.updateMatrix();
+        laptopTrackpadM.push(dummy.matrix.clone());
+
+        // Screen lid angled 110 deg (-0.35 rad)
+        dummy.position.set(t.x + x, 0.76 + 0.01, t.z + 0.12 - 0.09);
+        dummy.rotation.set(0, rotY, 0);
+        subDummy.position.set(0, 0.08, 0);
+        subDummy.rotation.set(-0.35, 0, 0);
+        subDummy.scale.set(1, 1, 1);
+        dummy.updateMatrix();
+        subDummy.updateMatrix();
+        laptopScreenLidM.push(dummy.matrix.clone().multiply(subDummy.matrix));
+
+        // Screen display face slightly in front [0, 0.08, 0.005]
+        subDummy.position.set(0, 0.08, 0.005);
+        subDummy.updateMatrix();
+        laptopScreenMatM.push(dummy.matrix.clone().multiply(subDummy.matrix));
+      }
+
+      // Breadboard
+      dummy.position.set(t.x + 0.42, 0.765, t.z - 0.18);
+      dummy.rotation.set(0, -0.2, 0);
+      dummy.updateMatrix();
+      breadboardM.push(dummy.matrix.clone());
+
+      // ESP32 on breadboard
+      subDummy.position.set(-0.02, 0.01, 0);
+      subDummy.rotation.set(0, 0, 0);
+      subDummy.updateMatrix();
+      esp32M.push(dummy.matrix.clone().multiply(subDummy.matrix));
+
+      // LED on breadboard
+      subDummy.position.set(0.03, 0.012, 0);
+      subDummy.updateMatrix();
+      esp32LedM.push(dummy.matrix.clone().multiply(subDummy.matrix));
+
+      // Chairs: 3 front, 2 back
+      // Front chairs
+      for (const cx of [-0.38, 0, 0.38]) {
+        // Seat
+        dummy.position.set(t.x + cx, 0.46, t.z + 0.54);
+        dummy.rotation.set(0, Math.PI, 0);
+        dummy.updateMatrix();
+        chairSeatM.push(dummy.matrix.clone());
+
+        // Backrest (offset in group was [0, 0.74, -0.17], with rotY=PI, z becomes +0.17)
+        dummy.position.set(t.x + cx, 0.74, t.z + 0.54 + 0.17);
+        dummy.rotation.set(0, Math.PI, 0);
+        dummy.updateMatrix();
+        chairMeshM.push(dummy.matrix.clone());
+
+        // Stem
+        dummy.position.set(t.x + cx, 0.23, t.z + 0.54);
+        dummy.rotation.set(0, 0, 0);
+        dummy.updateMatrix();
+        chairChromeM.push(dummy.matrix.clone());
+
+        // Base
+        dummy.position.set(t.x + cx, 0.03, t.z + 0.54);
+        dummy.rotation.set(0, 0, 0);
+        dummy.updateMatrix();
+        chairBaseM.push(dummy.matrix.clone());
+      }
+
+      // Back chairs (2)
+      for (const cx of [-0.38, 0.38]) {
+        // Seat
+        dummy.position.set(t.x + cx, 0.46, t.z - 0.54);
+        dummy.rotation.set(0, 0, 0);
+        dummy.updateMatrix();
+        chairSeatM.push(dummy.matrix.clone());
+
+        // Backrest
+        dummy.position.set(t.x + cx, 0.74, t.z - 0.54 - 0.17);
+        dummy.rotation.set(0, 0, 0);
+        dummy.updateMatrix();
+        chairMeshM.push(dummy.matrix.clone());
+
+        // Stem
+        dummy.position.set(t.x + cx, 0.23, t.z - 0.54);
+        dummy.updateMatrix();
+        chairChromeM.push(dummy.matrix.clone());
+
+        // Base
+        dummy.position.set(t.x + cx, 0.03, t.z - 0.54);
+        dummy.updateMatrix();
+        chairBaseM.push(dummy.matrix.clone());
+      }
+    }
+
+    return {
+      tableTopM,
+      tableTrimM,
+      steelLegsM,
+      powerRailM,
+      powerHubM,
+      ledStripM,
+      laptopChassisM,
+      laptopTrackpadM,
+      laptopScreenLidM,
+      laptopScreenMatM,
+      breadboardM,
+      esp32M,
+      esp32LedM,
+      chairSeatM,
+      chairMeshM,
+      chairChromeM,
+      chairBaseM,
+    };
+  }, []);
+
   return (
     <group>
-      {TABLE_LAYOUT.map((t, idx) => (
-        <group key={idx} position={[t.x, 0, t.z]}>
-          {/* 1. Scandinavian Blonde Birch Table Top */}
-          <mesh position={[0, 0.74, 0]} material={materials.tableTop} castShadow receiveShadow>
-            <boxGeometry args={[1.36, 0.04, 0.72]} />
-          </mesh>
-          {/* Edge Bevel Trim */}
-          <mesh position={[0, 0.725, 0]} material={materials.tableTrim}>
-            <boxGeometry args={[1.38, 0.015, 0.74]} />
-          </mesh>
-
-          {/* 2. Satin White Powder-Coated Steel Frame & Legs */}
-          {[-0.62, 0.62].flatMap((x) =>
-            [-0.3, 0.3].map((z) => (
-              <mesh key={`${x}-${z}`} position={[x, 0.36, z]} material={materials.steelLegs} castShadow>
-                <cylinderGeometry args={[0.02, 0.02, 0.72, 12]} />
-              </mesh>
-            )),
-          )}
-          {/* Under-desk cable management crossbar */}
-          <mesh position={[0, 0.68, 0]} material={materials.powerRail}>
-            <boxGeometry args={[1.24, 0.03, 0.06]} />
-          </mesh>
-
-          {/* 3. Central Power & USB-C Integrated Divider Hub */}
-          <mesh position={[0, 0.77, 0]} material={materials.powerRail}>
-            <boxGeometry args={[0.9, 0.025, 0.08]} />
-          </mesh>
-          {/* Glowing Status LED / USB-C Outlets */}
-          {[-0.25, 0, 0.25].map((px, i) => (
-            <mesh key={i} position={[px, 0.785, 0]} material={materials.ledStrip}>
-              <boxGeometry args={[0.04, 0.005, 0.012]} />
-            </mesh>
-          ))}
-
-          {/* 4. Student Laptops (3 per table) */}
-          {[-0.38, 0, 0.38].map((x, j) => (
-            <group key={`lap-${j}`} position={[x, 0.76, 0.12]} rotation={[0, (j - 1) * 0.08, 0]}>
-              {/* Laptop Base Keyboard Deck */}
-              <mesh position={[0, 0.006, 0]} material={materials.laptopChassis} castShadow>
-                <boxGeometry args={[0.26, 0.01, 0.18]} />
-              </mesh>
-              {/* Keyboard Trackpad */}
-              <mesh position={[0, 0.011, 0.04]} material={materials.chairSeat}>
-                <planeGeometry args={[0.08, 0.05]} />
-              </mesh>
-              {/* Laptop Screen Display Lid (Angled 110°) */}
-              <group position={[0, 0.01, -0.09]} rotation={[-0.35, 0, 0]}>
-                <mesh position={[0, 0.08, 0]} material={materials.laptopChassis} castShadow>
-                  <boxGeometry args={[0.26, 0.16, 0.008]} />
-                </mesh>
-                {/* Active IDE Screen Display */}
-                <mesh position={[0, 0.08, 0.005]} material={materials.laptopScreenMat}>
-                  <planeGeometry args={[0.24, 0.14]} />
-                </mesh>
-              </group>
-            </group>
-          ))}
-
-          {/* 5. Electronics Prototyping Breadboard & Component Tray on Desk */}
-          <group position={[0.42, 0.765, -0.18]} rotation={[0, -0.2, 0]}>
-            {/* White Solderless Breadboard */}
-            <mesh material={materials.breadboardMat} castShadow>
-              <boxGeometry args={[0.16, 0.01, 0.06]} />
-            </mesh>
-            {/* Embedded Microcontroller (ESP32) */}
-            <mesh position={[-0.02, 0.01, 0]}>
-              <boxGeometry args={[0.05, 0.006, 0.028]} />
-              <meshStandardMaterial color="#0f172a" />
-            </mesh>
-            {/* Glowing Status LED */}
-            <mesh position={[0.03, 0.012, 0]}>
-              <sphereGeometry args={[0.004, 6, 6]} />
-              <meshStandardMaterial color="#22c55e" emissive="#22c55e" emissiveIntensity={1} />
-            </mesh>
-          </group>
-
-          {/* 6. Ergonomic Modern Mesh Office Task Chairs (Facing Desks) */}
-          {/* Front Chairs (3 facing forward) */}
-          {[-0.38, 0, 0.38].map((x, j) => (
-            <group key={`chair-f-${j}`} position={[x, 0, 0.54]} rotation={[0, Math.PI, 0]}>
-              {/* Contoured Seat Cushion */}
-              <mesh position={[0, 0.46, 0]} material={materials.chairSeat} castShadow>
-                <boxGeometry args={[0.38, 0.05, 0.38]} />
-              </mesh>
-              {/* Breathable Ergonomic Mesh Backrest */}
-              <mesh position={[0, 0.74, -0.17]} material={materials.chairMesh} castShadow>
-                <boxGeometry args={[0.36, 0.42, 0.03]} />
-              </mesh>
-              {/* Pneumatic Gas Cylinder */}
-              <mesh position={[0, 0.23, 0]} material={materials.chairChrome}>
-                <cylinderGeometry args={[0.022, 0.025, 0.44, 10]} />
-              </mesh>
-              {/* 5-Star Base Plate */}
-              <mesh position={[0, 0.03, 0]} material={materials.chairSeat}>
-                <cylinderGeometry args={[0.18, 0.18, 0.02, 10]} />
-              </mesh>
-            </group>
-          ))}
-
-          {/* Back Chairs (2 facing backward) */}
-          {[-0.38, 0.38].map((x, j) => (
-            <group key={`chair-b-${j}`} position={[x, 0, -0.54]}>
-              <mesh position={[0, 0.46, 0]} material={materials.chairSeat} castShadow>
-                <boxGeometry args={[0.38, 0.05, 0.38]} />
-              </mesh>
-              <mesh position={[0, 0.74, -0.17]} material={materials.chairMesh} castShadow>
-                <boxGeometry args={[0.36, 0.42, 0.03]} />
-              </mesh>
-              <mesh position={[0, 0.23, 0]} material={materials.chairChrome}>
-                <cylinderGeometry args={[0.022, 0.025, 0.44, 10]} />
-              </mesh>
-              <mesh position={[0, 0.03, 0]} material={materials.chairSeat}>
-                <cylinderGeometry args={[0.18, 0.18, 0.02, 10]} />
-              </mesh>
-            </group>
-          ))}
-        </group>
-      ))}
+      <InstancedBatch
+        geometry={geometries.tableTop}
+        material={materials.tableTop}
+        matrices={batches.tableTopM}
+        castShadow
+        receiveShadow
+      />
+      <InstancedBatch
+        geometry={geometries.tableTrim}
+        material={materials.tableTrim}
+        matrices={batches.tableTrimM}
+      />
+      <InstancedBatch
+        geometry={geometries.steelLegs}
+        material={materials.steelLegs}
+        matrices={batches.steelLegsM}
+      />
+      <InstancedBatch
+        geometry={geometries.powerRail}
+        material={materials.powerRail}
+        matrices={batches.powerRailM}
+      />
+      <InstancedBatch
+        geometry={geometries.powerHub}
+        material={materials.powerRail}
+        matrices={batches.powerHubM}
+      />
+      <InstancedBatch
+        geometry={geometries.ledStrip}
+        material={materials.ledStrip}
+        matrices={batches.ledStripM}
+      />
+      <InstancedBatch
+        geometry={geometries.laptopChassis}
+        material={materials.laptopChassis}
+        matrices={batches.laptopChassisM}
+      />
+      <InstancedBatch
+        geometry={geometries.laptopTrackpad}
+        material={materials.chairSeat}
+        matrices={batches.laptopTrackpadM}
+      />
+      <InstancedBatch
+        geometry={geometries.laptopScreenLid}
+        material={materials.laptopChassis}
+        matrices={batches.laptopScreenLidM}
+      />
+      <InstancedBatch
+        geometry={geometries.laptopScreenMat}
+        material={materials.laptopScreenMat}
+        matrices={batches.laptopScreenMatM}
+      />
+      <InstancedBatch
+        geometry={geometries.breadboardMat}
+        material={materials.breadboardMat}
+        matrices={batches.breadboardM}
+      />
+      <InstancedBatch
+        geometry={geometries.esp32}
+        material={materials.esp32Mat}
+        matrices={batches.esp32M}
+      />
+      <InstancedBatch
+        geometry={geometries.esp32Led}
+        material={materials.esp32LedMat}
+        matrices={batches.esp32LedM}
+      />
+      <InstancedBatch
+        geometry={geometries.chairSeat}
+        material={materials.chairSeat}
+        matrices={batches.chairSeatM}
+        castShadow
+      />
+      <InstancedBatch
+        geometry={geometries.chairMesh}
+        material={materials.chairMesh}
+        matrices={batches.chairMeshM}
+      />
+      <InstancedBatch
+        geometry={geometries.chairChrome}
+        material={materials.chairChrome}
+        matrices={batches.chairChromeM}
+      />
+      <InstancedBatch
+        geometry={geometries.chairBase}
+        material={materials.chairSeat}
+        matrices={batches.chairBaseM}
+      />
     </group>
   );
 }

@@ -1,10 +1,10 @@
 import { i as __toESM } from "../_runtime.mjs";
-import { _ as require_react, g as require_jsx_runtime } from "../_libs/@react-three/drei+[...].mjs";
+import { S as require_react, x as require_jsx_runtime } from "../_libs/@react-three/drei+[...].mjs";
 import { t as create } from "../_libs/zustand.mjs";
 import { a as Play, c as MapPinned, d as Compass, f as ChevronUp, g as ArrowRight, h as ChevronDown, i as RotateCcw, l as LayoutGrid, m as ChevronLeft, n as Users, o as Phone, p as ChevronRight, s as Maximize2, t as X, u as Footprints } from "../_libs/lucide-react.mjs";
 import { n as clsx, t as cva } from "../_libs/class-variance-authority+clsx.mjs";
 import { t as twMerge } from "../_libs/tailwind-merge.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-DOFSAObJ.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-DACwywu8.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var __defProp = Object.defineProperty;
@@ -1127,7 +1127,7 @@ function Joystick() {
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-8 rounded-full bg-white/20" })
 	});
 }
-var CanvasApp = (0, import_react.lazy)(() => import("./canvas-BB7MBJin.mjs"));
+var CanvasApp = (0, import_react.lazy)(() => import("./canvas-B270KgWp.mjs"));
 function Experience() {
 	const [mounted, setMounted] = (0, import_react.useState)(false);
 	const phase = useLab((s) => s.phase);
@@ -1138,10 +1138,10 @@ function Experience() {
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 			className: "h-full w-full",
 			style: {
-				filter: isBlurred ? "blur(24px) brightness(1.03) saturate(1.15)" : "blur(0px) brightness(1) saturate(1)",
-				transform: isBlurred ? "scale(1.06)" : "scale(1)",
+				filter: isBlurred ? "blur(24px) brightness(1.03) saturate(1.15)" : "none",
+				transform: isBlurred ? "scale(1.06)" : "none",
 				transition: "filter 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1)",
-				willChange: "filter, transform"
+				willChange: isBlurred ? "filter, transform" : "auto"
 			},
 			children: mounted ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.Suspense, {
 				fallback: null,

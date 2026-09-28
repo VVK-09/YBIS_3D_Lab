@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
@@ -725,7 +725,6 @@ function FlagshipCoreXyPrinter({
         <boxGeometry args={[0.28, 0.008, 0.015]} />
         <meshStandardMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={1.2} toneMapped={false} />
       </mesh>
-      <pointLight position={[0, 0.38, 0]} color="#e0f2fe" intensity={0.9} distance={0.6} />
 
       {/* Dual Precision Lead Screws */}
       {[-0.13, 0.13].map((x, i) => (
@@ -802,8 +801,6 @@ function FlagshipCoreXyPrinter({
           <coneGeometry args={[0.006, 0.01, 8]} />
           <meshStandardMaterial color="#f59e0b" metalness={0.85} roughness={0.2} />
         </mesh>
-        {/* Subtle Hotend Point Light Glow */}
-        <pointLight position={[0, -0.025, 0]} color="#f97316" intensity={0.65} distance={0.15} />
 
         {/* Bowden Cable / PTFE Tube curving up */}
         <mesh position={[0, 0.065, -0.01]} rotation={[0.3, 0, 0]}>
@@ -1040,6 +1037,29 @@ function SlicerWorkstation({ position }: { position: [number, number, number] })
 // INDUSTRIAL MAKER WALL PEGBOARD & TOOL ORGANIZER
 // -------------------------------------------------------------
 
+function PegboardPins() {
+  const meshRef = useRef<THREE.InstancedMesh>(null);
+  const geo = useMemo(() => new THREE.CylinderGeometry(0.004, 0.004, 0.006, 8), []);
+  const mat = useMemo(() => new THREE.MeshStandardMaterial({ color: "#94a3b8", roughness: 0.4, metalness: 0.2 }), []);
+
+  useEffect(() => {
+    if (!meshRef.current) return;
+    const dummy = new THREE.Object3D();
+    let idx = 0;
+    for (let col = 0; col < 14; col++) {
+      for (let row = 0; row < 6; row++) {
+        dummy.position.set(-0.75 + col * 0.115, -0.32 + row * 0.13, 0.012);
+        dummy.rotation.set(Math.PI / 2, 0, 0);
+        dummy.updateMatrix();
+        meshRef.current.setMatrixAt(idx++, dummy.matrix);
+      }
+    }
+    meshRef.current.instanceMatrix.needsUpdate = true;
+  }, []);
+
+  return <instancedMesh ref={meshRef} args={[geo, mat, 84]} />;
+}
+
 function MakerspaceToolPegboard({ position }: { position: [number, number, number] }) {
   const dryboxTex = useMemo(() => makeDryboxOledTexture(), []);
 
@@ -1057,14 +1077,7 @@ function MakerspaceToolPegboard({ position }: { position: [number, number, numbe
       </mesh>
 
       {/* Regular array of laser-cut peg holes (Light Silver) */}
-      {Array.from({ length: 14 }).map((_, col) =>
-        Array.from({ length: 6 }).map((_, row) => (
-          <mesh key={`${col}-${row}`} position={[-0.75 + col * 0.115, -0.32 + row * 0.13, 0.012]} rotation={[Math.PI / 2, 0, 0]}>
-            <cylinderGeometry args={[0.004, 0.004, 0.006, 8]} />
-            <meshStandardMaterial color="#94a3b8" roughness={0.4} metalness={0.2} />
-          </mesh>
-        )),
-      )}
+      <PegboardPins />
 
       {/* 2. Hanging Tools on Peg Hooks */}
       {/* Precision Flush Cutters (Blue Handles) */}
@@ -1454,7 +1467,6 @@ export function Zone2PrintShowcase() {
             toneMapped={false}
           />
         </mesh>
-        <pointLight position={[0.05, 0.85, -0.32]} color="#38bdf8" intensity={0.9} distance={1.2} />
 
         {/* ---------------- EQUIPMENT ON BENCH ---------------- */}
 
@@ -1494,13 +1506,6 @@ export function Zone2PrintShowcase() {
           4. ARTIFACT GALLERY & SAMPLES TOWER (Left of Workbench)
           ------------------------------------------------------------- */}
       <PrintArtifactGalleryTower position={[-1.18, 0, 0.02]} />
-
-      {/* -------------------------------------------------------------
-          5. OVERHEAD TASK LIGHTING SPOTLIGHTS (Bright Daylight)
-          ------------------------------------------------------------- */}
-      <pointLight position={[-0.42, 2.1, 0.1]} color="#ffffff" intensity={1.6} distance={2.6} />
-      <pointLight position={[0.16, 2.1, 0.1]} color="#fef9c3" intensity={1.6} distance={2.6} />
-      <pointLight position={[0.68, 2.1, 0.1]} color="#ffffff" intensity={1.7} distance={2.6} />
     </group>
   );
 }

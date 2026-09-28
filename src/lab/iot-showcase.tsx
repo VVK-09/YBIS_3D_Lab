@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
@@ -1115,22 +1115,6 @@ export function IoTShowcaseCabinet({
         />
       </mesh>
 
-      {/* Internal spotlights casting down on the showcase */}
-      <pointLight
-        position={[0.06, H - 0.18, 0]}
-        intensity={2.6}
-        distance={3.4}
-        color="#e0f2fe"
-        decay={1.8}
-      />
-      <pointLight
-        position={[0.1, 1.25, 0]}
-        intensity={1.6}
-        distance={2.4}
-        color="#bae6fd"
-        decay={1.8}
-      />
-
       {/* 8. Backlit Category Sign Header mounted on front of canopy */}
       <mesh position={[D / 2 + 0.012, H - 0.045, 0]} rotation={[0, Math.PI / 2, 0]}>
         <planeGeometry args={[W - 0.06, 0.08]} />
@@ -1160,6 +1144,26 @@ export function IoTShowcaseCabinet({
       {children}
     </group>
   );
+}
+
+function IoTWallSlats() {
+  const meshRef = useRef<THREE.InstancedMesh>(null);
+  const geo = useMemo(() => new THREE.BoxGeometry(0.035, 2.65, 0.014), []);
+  const mat = useMemo(() => new THREE.MeshStandardMaterial({ color: "#1e293b", roughness: 0.6 }), []);
+
+  useEffect(() => {
+    if (!meshRef.current) return;
+    const dummy = new THREE.Object3D();
+    for (let i = 0; i < 32; i++) {
+      dummy.position.set(0.015, 0, -1.8 + i * 0.116);
+      dummy.rotation.set(0, Math.PI / 2, 0);
+      dummy.updateMatrix();
+      meshRef.current.setMatrixAt(i, dummy.matrix);
+    }
+    meshRef.current.instanceMatrix.needsUpdate = true;
+  }, []);
+
+  return <instancedMesh ref={meshRef} args={[geo, mat, 32]} />;
 }
 
 // -------------------------------------------------------------
@@ -1222,16 +1226,7 @@ export function Zone6IoTShowcase() {
           />
         </mesh>
 
-        {Array.from({ length: 32 }).map((_, i) => (
-          <mesh
-            key={i}
-            position={[0.015, 0, -1.8 + i * 0.116]}
-            rotation={[0, Math.PI / 2, 0]}
-          >
-            <boxGeometry args={[0.035, 2.65, 0.014]} />
-            <meshStandardMaterial color="#1e293b" roughness={0.6} />
-          </mesh>
-        ))}
+        <IoTWallSlats />
 
         {/* Floating Illuminated Lab Header Sign above the cabinets */}
         <mesh position={[0.04, 0.96, 0]} rotation={[0, Math.PI / 2, 0]}>

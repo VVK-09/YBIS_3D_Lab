@@ -1,7 +1,7 @@
 import { i as __toESM } from "../_runtime.mjs";
-import { _ as require_react, a as useCursor, c as useThree, d as MeshStandardMaterial, f as RepeatWrapping, g as require_jsx_runtime, i as Billboard, m as Vector3, n as OrbitControls, o as Canvas, p as SRGBColorSpace, r as useTexture, s as useFrame, t as ContactShadows, u as CanvasTexture } from "../_libs/@react-three/drei+[...].mjs";
-import { a as TABLE_LAYOUT, i as ROOM, n as useLab, o as ZONES, r as COLLIDERS } from "./routes-DOFSAObJ.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/canvas-BB7MBJin.js
+import { S as require_react, _ as SRGBColorSpace, a as useCursor, c as useThree, d as CanvasTexture, f as CylinderGeometry, g as RepeatWrapping, h as PlaneGeometry, i as Billboard, m as Object3D, n as OrbitControls, o as Canvas, p as MeshStandardMaterial, r as useTexture, s as useFrame, t as ContactShadows, u as BoxGeometry, v as SphereGeometry, x as require_jsx_runtime, y as Vector3 } from "../_libs/@react-three/drei+[...].mjs";
+import { a as TABLE_LAYOUT, i as ROOM, n as useLab, o as ZONES, r as COLLIDERS } from "./routes-DACwywu8.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/canvas-B270KgWp.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var NAVY = "#092244";
@@ -708,75 +708,55 @@ function Lights() {
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)("hemisphereLight", { args: [
 			"#fff4e6",
 			"#8aa0b8",
-			.55
+			.7
 		] }),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)("ambientLight", { intensity: .34 }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)("ambientLight", { intensity: .42 }),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)("directionalLight", {
 			position: [
 				2.5,
 				8.2,
 				6.2
 			],
-			intensity: 1.25,
+			intensity: 1.35,
 			castShadow: true,
 			"shadow-mapSize": [1024, 1024],
-			"shadow-bias": -2e-4,
+			"shadow-bias": -3e-4,
 			"shadow-camera-near": 1,
 			"shadow-camera-far": 28,
-			"shadow-camera-left": -10,
-			"shadow-camera-right": 10,
-			"shadow-camera-top": 10,
-			"shadow-camera-bottom": -10
+			"shadow-camera-left": -9,
+			"shadow-camera-right": 9,
+			"shadow-camera-top": 9,
+			"shadow-camera-bottom": -9
 		}),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)("pointLight", {
 			position: [
-				-4.2,
-				2.3,
-				-3.4
+				-3.2,
+				2.4,
+				-3
 			],
 			color: "#ffe7b8",
-			intensity: .5,
-			distance: 5
+			intensity: .65,
+			distance: 8
 		}),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)("pointLight", {
 			position: [
+				3,
 				2.4,
-				2.2,
-				-3.4
+				-3
 			],
 			color: "#38bdf8",
-			intensity: .75,
-			distance: 4.5
-		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)("pointLight", {
-			position: [
-				4.8,
-				2.2,
-				-2.4
-			],
-			color: "#7dd3fc",
-			intensity: .4,
-			distance: 4
-		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)("pointLight", {
-			position: [
-				-4.3,
-				2,
-				2.5
-			],
-			color: "#f9a8d4",
-			intensity: .35,
-			distance: 3.5
+			intensity: .8,
+			distance: 8
 		}),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)("pointLight", {
 			position: [
 				0,
-				2.9,
-				2.2
+				2.8,
+				2
 			],
-			color: "#fff7ed",
-			intensity: .4,
-			distance: 7
+			color: "#ffffff",
+			intensity: .5,
+			distance: 9
 		})
 	] });
 }
@@ -2369,16 +2349,6 @@ function FlagshipCoreXyPrinter({ position, phase = 0 }) {
 					toneMapped: false
 				})]
 			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("pointLight", {
-				position: [
-					0,
-					.38,
-					0
-				],
-				color: "#e0f2fe",
-				intensity: .9,
-				distance: .6
-			}),
 			[-.13, .13].map((x, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("group", {
 				position: [
 					x,
@@ -2587,16 +2557,6 @@ function FlagshipCoreXyPrinter({ position, phase = 0 }) {
 							metalness: .85,
 							roughness: .2
 						})]
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("pointLight", {
-						position: [
-							0,
-							-.025,
-							0
-						],
-						color: "#f97316",
-						intensity: .65,
-						distance: .15
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("mesh", {
 						position: [
@@ -3094,6 +3054,35 @@ function SlicerWorkstation({ position }) {
 		]
 	});
 }
+function PegboardPins() {
+	const meshRef = (0, import_react.useRef)(null);
+	const geo = (0, import_react.useMemo)(() => new CylinderGeometry(.004, .004, .006, 8), []);
+	const mat = (0, import_react.useMemo)(() => new MeshStandardMaterial({
+		color: "#94a3b8",
+		roughness: .4,
+		metalness: .2
+	}), []);
+	(0, import_react.useEffect)(() => {
+		if (!meshRef.current) return;
+		const dummy = new Object3D();
+		let idx = 0;
+		for (let col = 0; col < 14; col++) for (let row = 0; row < 6; row++) {
+			dummy.position.set(-.75 + col * .115, -.32 + row * .13, .012);
+			dummy.rotation.set(Math.PI / 2, 0, 0);
+			dummy.updateMatrix();
+			meshRef.current.setMatrixAt(idx++, dummy.matrix);
+		}
+		meshRef.current.instanceMatrix.needsUpdate = true;
+	}, []);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("instancedMesh", {
+		ref: meshRef,
+		args: [
+			geo,
+			mat,
+			84
+		]
+	});
+}
 function MakerspaceToolPegboard({ position }) {
 	const dryboxTex = (0, import_react.useMemo)(() => makeDryboxOledTexture(), []);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("group", {
@@ -3132,28 +3121,7 @@ function MakerspaceToolPegboard({ position }) {
 					roughness: .2
 				})]
 			}),
-			Array.from({ length: 14 }).map((_, col) => Array.from({ length: 6 }).map((_, row) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("mesh", {
-				position: [
-					-.75 + col * .115,
-					-.32 + row * .13,
-					.012
-				],
-				rotation: [
-					Math.PI / 2,
-					0,
-					0
-				],
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("cylinderGeometry", { args: [
-					.004,
-					.004,
-					.006,
-					8
-				] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("meshStandardMaterial", {
-					color: "#94a3b8",
-					roughness: .4,
-					metalness: .2
-				})]
-			}, `${col}-${row}`))),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(PegboardPins, {}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("group", {
 				position: [
 					-.55,
@@ -4012,16 +3980,6 @@ function Zone2PrintShowcase() {
 							toneMapped: false
 						})]
 					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("pointLight", {
-						position: [
-							.05,
-							.85,
-							-.32
-						],
-						color: "#38bdf8",
-						intensity: .9,
-						distance: 1.2
-					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FlagshipCoreXyPrinter, {
 						position: [
 							-.42,
@@ -4119,37 +4077,7 @@ function Zone2PrintShowcase() {
 				-1.18,
 				0,
 				.02
-			] }),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("pointLight", {
-				position: [
-					-.42,
-					2.1,
-					.1
-				],
-				color: "#ffffff",
-				intensity: 1.6,
-				distance: 2.6
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("pointLight", {
-				position: [
-					.16,
-					2.1,
-					.1
-				],
-				color: "#fef9c3",
-				intensity: 1.6,
-				distance: 2.6
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("pointLight", {
-				position: [
-					.68,
-					2.1,
-					.1
-				],
-				color: "#ffffff",
-				intensity: 1.7,
-				distance: 2.6
-			})
+			] })
 		]
 	});
 }
@@ -5113,27 +5041,7 @@ function Zone3BreakBuildShowcase() {
 						})]
 					})
 				]
-			}, i)),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("pointLight", {
-				position: [
-					-.45,
-					2.1,
-					.1
-				],
-				color: "#ffffff",
-				intensity: 1.6,
-				distance: 2.5
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("pointLight", {
-				position: [
-					.45,
-					2.1,
-					.1
-				],
-				color: "#ffffff",
-				intensity: 1.6,
-				distance: 2.5
-			})
+			}, i))
 		]
 	});
 }
@@ -6444,16 +6352,6 @@ function Zone4RoboticsShowcase() {
 						}, idx);
 					})
 				]
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("pointLight", {
-				position: [
-					0,
-					1.6,
-					.1
-				],
-				color: "#e0f2fe",
-				intensity: 1.2,
-				distance: 3.2
 			})
 		]
 	});
@@ -9634,28 +9532,6 @@ function IoTShowcaseCabinet({ position, categoryTitle, categorySubtitle, childre
 					toneMapped: false
 				})]
 			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("pointLight", {
-				position: [
-					.06,
-					1.97,
-					0
-				],
-				intensity: 2.6,
-				distance: 3.4,
-				color: "#e0f2fe",
-				decay: 1.8
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("pointLight", {
-				position: [
-					.1,
-					1.25,
-					0
-				],
-				intensity: 1.6,
-				distance: 2.4,
-				color: "#bae6fd",
-				decay: 1.8
-			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("mesh", {
 				position: [
 					.232,
@@ -9693,6 +9569,33 @@ function IoTShowcaseCabinet({ position, categoryTitle, categorySubtitle, childre
 				})]
 			}, i)),
 			children
+		]
+	});
+}
+function IoTWallSlats() {
+	const meshRef = (0, import_react.useRef)(null);
+	const geo = (0, import_react.useMemo)(() => new BoxGeometry(.035, 2.65, .014), []);
+	const mat = (0, import_react.useMemo)(() => new MeshStandardMaterial({
+		color: "#1e293b",
+		roughness: .6
+	}), []);
+	(0, import_react.useEffect)(() => {
+		if (!meshRef.current) return;
+		const dummy = new Object3D();
+		for (let i = 0; i < 32; i++) {
+			dummy.position.set(.015, 0, -1.8 + i * .116);
+			dummy.rotation.set(0, Math.PI / 2, 0);
+			dummy.updateMatrix();
+			meshRef.current.setMatrixAt(i, dummy.matrix);
+		}
+		meshRef.current.instanceMatrix.needsUpdate = true;
+	}, []);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("instancedMesh", {
+		ref: meshRef,
+		args: [
+			geo,
+			mat,
+			32
 		]
 	});
 }
@@ -9767,26 +9670,7 @@ function Zone6IoTShowcase() {
 						opacity: .4
 					})]
 				}),
-				Array.from({ length: 32 }).map((_, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("mesh", {
-					position: [
-						.015,
-						0,
-						-1.8 + i * .116
-					],
-					rotation: [
-						0,
-						Math.PI / 2,
-						0
-					],
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("boxGeometry", { args: [
-						.035,
-						2.65,
-						.014
-					] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("meshStandardMaterial", {
-						color: "#1e293b",
-						roughness: .6
-					})]
-				}, i)),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(IoTWallSlats, {}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("mesh", {
 					position: [
 						.04,
@@ -10501,6 +10385,24 @@ function makeIdeScreenTexture() {
 		ctx.fillText("avp-student@innovation-hub:~/robotics$ _", 142, h - 14);
 	});
 }
+function InstancedBatch({ geometry, material, matrices, castShadow = false, receiveShadow = false }) {
+	const ref = (0, import_react.useRef)(null);
+	(0, import_react.useEffect)(() => {
+		if (!ref.current) return;
+		for (let i = 0; i < matrices.length; i++) ref.current.setMatrixAt(i, matrices[i]);
+		ref.current.instanceMatrix.needsUpdate = true;
+	}, [matrices]);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("instancedMesh", {
+		ref,
+		args: [
+			geometry,
+			material,
+			matrices.length
+		],
+		castShadow,
+		receiveShadow
+	});
+}
 function Zone7WorkstationsShowcase({ laptop }) {
 	const ideTex = (0, import_react.useMemo)(() => makeIdeScreenTexture(), []);
 	const materials = (0, import_react.useMemo)(() => ({
@@ -10556,371 +10458,269 @@ function Zone7WorkstationsShowcase({ laptop }) {
 			color: "#f8fafc",
 			roughness: .4
 		}),
-		trayMat: new MeshStandardMaterial({
-			color: "#0284c7",
-			roughness: .3
+		esp32Mat: new MeshStandardMaterial({ color: "#0f172a" }),
+		esp32LedMat: new MeshStandardMaterial({
+			color: "#22c55e",
+			emissive: "#22c55e",
+			emissiveIntensity: 1
 		})
 	}), [ideTex]);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("group", { children: TABLE_LAYOUT.map((t, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("group", {
-		position: [
-			t.x,
-			0,
-			t.z
-		],
-		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("mesh", {
-				position: [
-					0,
-					.74,
-					0
-				],
-				material: materials.tableTop,
-				castShadow: true,
-				receiveShadow: true,
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("boxGeometry", { args: [
-					1.36,
-					.04,
-					.72
-				] })
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("mesh", {
-				position: [
-					0,
-					.725,
-					0
-				],
-				material: materials.tableTrim,
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("boxGeometry", { args: [
-					1.38,
-					.015,
-					.74
-				] })
-			}),
-			[-.62, .62].flatMap((x) => [-.3, .3].map((z) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("mesh", {
-				position: [
-					x,
-					.36,
-					z
-				],
-				material: materials.steelLegs,
-				castShadow: true,
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("cylinderGeometry", { args: [
-					.02,
-					.02,
-					.72,
-					12
-				] })
-			}, `${x}-${z}`))),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("mesh", {
-				position: [
-					0,
-					.68,
-					0
-				],
-				material: materials.powerRail,
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("boxGeometry", { args: [
-					1.24,
-					.03,
-					.06
-				] })
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("mesh", {
-				position: [
-					0,
-					.77,
-					0
-				],
-				material: materials.powerRail,
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("boxGeometry", { args: [
-					.9,
-					.025,
-					.08
-				] })
-			}),
-			[
+	const geometries = (0, import_react.useMemo)(() => ({
+		tableTop: new BoxGeometry(1.36, .04, .72),
+		tableTrim: new BoxGeometry(1.38, .015, .74),
+		steelLegs: new CylinderGeometry(.02, .02, .72, 8),
+		powerRail: new BoxGeometry(1.24, .03, .06),
+		powerHub: new BoxGeometry(.9, .025, .08),
+		ledStrip: new BoxGeometry(.04, .005, .012),
+		laptopChassis: new BoxGeometry(.26, .01, .18),
+		laptopTrackpad: new PlaneGeometry(.08, .05),
+		laptopScreenLid: new BoxGeometry(.26, .16, .008),
+		laptopScreenMat: new PlaneGeometry(.24, .14),
+		breadboardMat: new BoxGeometry(.16, .01, .06),
+		esp32: new BoxGeometry(.05, .006, .028),
+		esp32Led: new SphereGeometry(.004, 6, 6),
+		chairSeat: new BoxGeometry(.38, .05, .38),
+		chairMesh: new BoxGeometry(.36, .42, .03),
+		chairChrome: new CylinderGeometry(.022, .025, .44, 8),
+		chairBase: new CylinderGeometry(.18, .18, .02, 8)
+	}), []);
+	const batches = (0, import_react.useMemo)(() => {
+		const tableTopM = [];
+		const tableTrimM = [];
+		const steelLegsM = [];
+		const powerRailM = [];
+		const powerHubM = [];
+		const ledStripM = [];
+		const laptopChassisM = [];
+		const laptopTrackpadM = [];
+		const laptopScreenLidM = [];
+		const laptopScreenMatM = [];
+		const breadboardM = [];
+		const esp32M = [];
+		const esp32LedM = [];
+		const chairSeatM = [];
+		const chairMeshM = [];
+		const chairChromeM = [];
+		const chairBaseM = [];
+		const dummy = new Object3D();
+		const subDummy = new Object3D();
+		for (const t of TABLE_LAYOUT) {
+			dummy.position.set(t.x, .74, t.z);
+			dummy.rotation.set(0, 0, 0);
+			dummy.scale.set(1, 1, 1);
+			dummy.updateMatrix();
+			tableTopM.push(dummy.matrix.clone());
+			dummy.position.set(t.x, .725, t.z);
+			dummy.updateMatrix();
+			tableTrimM.push(dummy.matrix.clone());
+			for (const lx of [-.62, .62]) for (const lz of [-.3, .3]) {
+				dummy.position.set(t.x + lx, .36, t.z + lz);
+				dummy.updateMatrix();
+				steelLegsM.push(dummy.matrix.clone());
+			}
+			dummy.position.set(t.x, .68, t.z);
+			dummy.updateMatrix();
+			powerRailM.push(dummy.matrix.clone());
+			dummy.position.set(t.x, .77, t.z);
+			dummy.updateMatrix();
+			powerHubM.push(dummy.matrix.clone());
+			for (const px of [
 				-.25,
 				0,
 				.25
-			].map((px, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("mesh", {
-				position: [
-					px,
-					.785,
-					0
-				],
-				material: materials.ledStrip,
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("boxGeometry", { args: [
-					.04,
-					.005,
-					.012
-				] })
-			}, i)),
-			[
+			]) {
+				dummy.position.set(t.x + px, .785, t.z);
+				dummy.updateMatrix();
+				ledStripM.push(dummy.matrix.clone());
+			}
+			const lapX = [
 				-.38,
 				0,
 				.38
-			].map((x, j) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("group", {
-				position: [
-					x,
-					.76,
-					.12
-				],
-				rotation: [
-					0,
-					(j - 1) * .08,
-					0
-				],
-				children: [
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("mesh", {
-						position: [
-							0,
-							.006,
-							0
-						],
-						material: materials.laptopChassis,
-						castShadow: true,
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("boxGeometry", { args: [
-							.26,
-							.01,
-							.18
-						] })
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("mesh", {
-						position: [
-							0,
-							.011,
-							.04
-						],
-						material: materials.chairSeat,
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("planeGeometry", { args: [.08, .05] })
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("group", {
-						position: [
-							0,
-							.01,
-							-.09
-						],
-						rotation: [
-							-.35,
-							0,
-							0
-						],
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("mesh", {
-							position: [
-								0,
-								.08,
-								0
-							],
-							material: materials.laptopChassis,
-							castShadow: true,
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("boxGeometry", { args: [
-								.26,
-								.16,
-								.008
-							] })
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("mesh", {
-							position: [
-								0,
-								.08,
-								.005
-							],
-							material: materials.laptopScreenMat,
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("planeGeometry", { args: [.24, .14] })
-						})]
-					})
-				]
-			}, `lap-${j}`)),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("group", {
-				position: [
-					.42,
-					.765,
-					-.18
-				],
-				rotation: [
-					0,
-					-.2,
-					0
-				],
-				children: [
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("mesh", {
-						material: materials.breadboardMat,
-						castShadow: true,
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("boxGeometry", { args: [
-							.16,
-							.01,
-							.06
-						] })
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("mesh", {
-						position: [
-							-.02,
-							.01,
-							0
-						],
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("boxGeometry", { args: [
-							.05,
-							.006,
-							.028
-						] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("meshStandardMaterial", { color: "#0f172a" })]
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("mesh", {
-						position: [
-							.03,
-							.012,
-							0
-						],
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("sphereGeometry", { args: [
-							.004,
-							6,
-							6
-						] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("meshStandardMaterial", {
-							color: "#22c55e",
-							emissive: "#22c55e",
-							emissiveIntensity: 1
-						})]
-					})
-				]
-			}),
-			[
+			];
+			for (let j = 0; j < 3; j++) {
+				const x = lapX[j];
+				const rotY = (j - 1) * .08;
+				dummy.position.set(t.x + x, .766, t.z + .12);
+				dummy.rotation.set(0, rotY, 0);
+				dummy.updateMatrix();
+				laptopChassisM.push(dummy.matrix.clone());
+				dummy.position.set(t.x + x, .771, t.z + .12 + .04);
+				dummy.rotation.set(-Math.PI / 2, 0, rotY);
+				dummy.updateMatrix();
+				laptopTrackpadM.push(dummy.matrix.clone());
+				dummy.position.set(t.x + x, .77, t.z + .12 - .09);
+				dummy.rotation.set(0, rotY, 0);
+				subDummy.position.set(0, .08, 0);
+				subDummy.rotation.set(-.35, 0, 0);
+				subDummy.scale.set(1, 1, 1);
+				dummy.updateMatrix();
+				subDummy.updateMatrix();
+				laptopScreenLidM.push(dummy.matrix.clone().multiply(subDummy.matrix));
+				subDummy.position.set(0, .08, .005);
+				subDummy.updateMatrix();
+				laptopScreenMatM.push(dummy.matrix.clone().multiply(subDummy.matrix));
+			}
+			dummy.position.set(t.x + .42, .765, t.z - .18);
+			dummy.rotation.set(0, -.2, 0);
+			dummy.updateMatrix();
+			breadboardM.push(dummy.matrix.clone());
+			subDummy.position.set(-.02, .01, 0);
+			subDummy.rotation.set(0, 0, 0);
+			subDummy.updateMatrix();
+			esp32M.push(dummy.matrix.clone().multiply(subDummy.matrix));
+			subDummy.position.set(.03, .012, 0);
+			subDummy.updateMatrix();
+			esp32LedM.push(dummy.matrix.clone().multiply(subDummy.matrix));
+			for (const cx of [
 				-.38,
 				0,
 				.38
-			].map((x, j) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("group", {
-				position: [
-					x,
-					0,
-					.54
-				],
-				rotation: [
-					0,
-					Math.PI,
-					0
-				],
-				children: [
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("mesh", {
-						position: [
-							0,
-							.46,
-							0
-						],
-						material: materials.chairSeat,
-						castShadow: true,
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("boxGeometry", { args: [
-							.38,
-							.05,
-							.38
-						] })
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("mesh", {
-						position: [
-							0,
-							.74,
-							-.17
-						],
-						material: materials.chairMesh,
-						castShadow: true,
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("boxGeometry", { args: [
-							.36,
-							.42,
-							.03
-						] })
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("mesh", {
-						position: [
-							0,
-							.23,
-							0
-						],
-						material: materials.chairChrome,
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("cylinderGeometry", { args: [
-							.022,
-							.025,
-							.44,
-							10
-						] })
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("mesh", {
-						position: [
-							0,
-							.03,
-							0
-						],
-						material: materials.chairSeat,
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("cylinderGeometry", { args: [
-							.18,
-							.18,
-							.02,
-							10
-						] })
-					})
-				]
-			}, `chair-f-${j}`)),
-			[-.38, .38].map((x, j) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("group", {
-				position: [
-					x,
-					0,
-					-.54
-				],
-				children: [
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("mesh", {
-						position: [
-							0,
-							.46,
-							0
-						],
-						material: materials.chairSeat,
-						castShadow: true,
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("boxGeometry", { args: [
-							.38,
-							.05,
-							.38
-						] })
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("mesh", {
-						position: [
-							0,
-							.74,
-							-.17
-						],
-						material: materials.chairMesh,
-						castShadow: true,
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("boxGeometry", { args: [
-							.36,
-							.42,
-							.03
-						] })
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("mesh", {
-						position: [
-							0,
-							.23,
-							0
-						],
-						material: materials.chairChrome,
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("cylinderGeometry", { args: [
-							.022,
-							.025,
-							.44,
-							10
-						] })
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("mesh", {
-						position: [
-							0,
-							.03,
-							0
-						],
-						material: materials.chairSeat,
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("cylinderGeometry", { args: [
-							.18,
-							.18,
-							.02,
-							10
-						] })
-					})
-				]
-			}, `chair-b-${j}`))
-		]
-	}, idx)) });
+			]) {
+				dummy.position.set(t.x + cx, .46, t.z + .54);
+				dummy.rotation.set(0, Math.PI, 0);
+				dummy.updateMatrix();
+				chairSeatM.push(dummy.matrix.clone());
+				dummy.position.set(t.x + cx, .74, t.z + .54 + .17);
+				dummy.rotation.set(0, Math.PI, 0);
+				dummy.updateMatrix();
+				chairMeshM.push(dummy.matrix.clone());
+				dummy.position.set(t.x + cx, .23, t.z + .54);
+				dummy.rotation.set(0, 0, 0);
+				dummy.updateMatrix();
+				chairChromeM.push(dummy.matrix.clone());
+				dummy.position.set(t.x + cx, .03, t.z + .54);
+				dummy.rotation.set(0, 0, 0);
+				dummy.updateMatrix();
+				chairBaseM.push(dummy.matrix.clone());
+			}
+			for (const cx of [-.38, .38]) {
+				dummy.position.set(t.x + cx, .46, t.z - .54);
+				dummy.rotation.set(0, 0, 0);
+				dummy.updateMatrix();
+				chairSeatM.push(dummy.matrix.clone());
+				dummy.position.set(t.x + cx, .74, t.z - .54 - .17);
+				dummy.rotation.set(0, 0, 0);
+				dummy.updateMatrix();
+				chairMeshM.push(dummy.matrix.clone());
+				dummy.position.set(t.x + cx, .23, t.z - .54);
+				dummy.updateMatrix();
+				chairChromeM.push(dummy.matrix.clone());
+				dummy.position.set(t.x + cx, .03, t.z - .54);
+				dummy.updateMatrix();
+				chairBaseM.push(dummy.matrix.clone());
+			}
+		}
+		return {
+			tableTopM,
+			tableTrimM,
+			steelLegsM,
+			powerRailM,
+			powerHubM,
+			ledStripM,
+			laptopChassisM,
+			laptopTrackpadM,
+			laptopScreenLidM,
+			laptopScreenMatM,
+			breadboardM,
+			esp32M,
+			esp32LedM,
+			chairSeatM,
+			chairMeshM,
+			chairChromeM,
+			chairBaseM
+		};
+	}, []);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("group", { children: [
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(InstancedBatch, {
+			geometry: geometries.tableTop,
+			material: materials.tableTop,
+			matrices: batches.tableTopM,
+			castShadow: true,
+			receiveShadow: true
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(InstancedBatch, {
+			geometry: geometries.tableTrim,
+			material: materials.tableTrim,
+			matrices: batches.tableTrimM
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(InstancedBatch, {
+			geometry: geometries.steelLegs,
+			material: materials.steelLegs,
+			matrices: batches.steelLegsM
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(InstancedBatch, {
+			geometry: geometries.powerRail,
+			material: materials.powerRail,
+			matrices: batches.powerRailM
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(InstancedBatch, {
+			geometry: geometries.powerHub,
+			material: materials.powerRail,
+			matrices: batches.powerHubM
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(InstancedBatch, {
+			geometry: geometries.ledStrip,
+			material: materials.ledStrip,
+			matrices: batches.ledStripM
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(InstancedBatch, {
+			geometry: geometries.laptopChassis,
+			material: materials.laptopChassis,
+			matrices: batches.laptopChassisM
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(InstancedBatch, {
+			geometry: geometries.laptopTrackpad,
+			material: materials.chairSeat,
+			matrices: batches.laptopTrackpadM
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(InstancedBatch, {
+			geometry: geometries.laptopScreenLid,
+			material: materials.laptopChassis,
+			matrices: batches.laptopScreenLidM
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(InstancedBatch, {
+			geometry: geometries.laptopScreenMat,
+			material: materials.laptopScreenMat,
+			matrices: batches.laptopScreenMatM
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(InstancedBatch, {
+			geometry: geometries.breadboardMat,
+			material: materials.breadboardMat,
+			matrices: batches.breadboardM
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(InstancedBatch, {
+			geometry: geometries.esp32,
+			material: materials.esp32Mat,
+			matrices: batches.esp32M
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(InstancedBatch, {
+			geometry: geometries.esp32Led,
+			material: materials.esp32LedMat,
+			matrices: batches.esp32LedM
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(InstancedBatch, {
+			geometry: geometries.chairSeat,
+			material: materials.chairSeat,
+			matrices: batches.chairSeatM,
+			castShadow: true
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(InstancedBatch, {
+			geometry: geometries.chairMesh,
+			material: materials.chairMesh,
+			matrices: batches.chairMeshM
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(InstancedBatch, {
+			geometry: geometries.chairChrome,
+			material: materials.chairChrome,
+			matrices: batches.chairChromeM
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(InstancedBatch, {
+			geometry: geometries.chairBase,
+			material: materials.chairSeat,
+			matrices: batches.chairBaseM
+		})
+	] });
 }
 function createTextCanvas$2(width, height, draw) {
 	const c = document.createElement("canvas");
@@ -12480,16 +12280,6 @@ function Zone9SpatialVRShowcase({ mural }) {
 						})
 					}, i))
 				]
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("pointLight", {
-				position: [
-					0,
-					2.2,
-					.8
-				],
-				color: "#7dd3fc",
-				intensity: 1.4,
-				distance: 3.8
 			})
 		]
 	});
@@ -12879,17 +12669,6 @@ function ExhibitionBay({ position, title, subtitle, accentColor, children }) {
 							emissiveIntensity: .85,
 							toneMapped: false
 						})]
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("pointLight", {
-						position: [
-							0,
-							-.1,
-							0
-						],
-						color: accentColor,
-						intensity: .6,
-						distance: 1.1,
-						decay: 2
 					})
 				]
 			}, i)),
@@ -13886,6 +13665,33 @@ function FpvRacingDroneExhibit({ position }) {
 		]
 	});
 }
+function ProjectWallSlats() {
+	const meshRef = (0, import_react.useRef)(null);
+	const geo = (0, import_react.useMemo)(() => new BoxGeometry(.035, 2.65, .014), []);
+	const mat = (0, import_react.useMemo)(() => new MeshStandardMaterial({
+		color: "#1e293b",
+		roughness: .6
+	}), []);
+	(0, import_react.useEffect)(() => {
+		if (!meshRef.current) return;
+		const dummy = new Object3D();
+		for (let i = 0; i < 36; i++) {
+			dummy.position.set(-.015, 0, -2 + i * .114);
+			dummy.rotation.set(0, -Math.PI / 2, 0);
+			dummy.updateMatrix();
+			meshRef.current.setMatrixAt(i, dummy.matrix);
+		}
+		meshRef.current.instanceMatrix.needsUpdate = true;
+	}, []);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("instancedMesh", {
+		ref: meshRef,
+		args: [
+			geo,
+			mat,
+			36
+		]
+	});
+}
 function Zone10ProjectShowcase() {
 	const wallSignTex = (0, import_react.useMemo)(() => makeProjectWallSignTexture(), []);
 	const placardBionic = (0, import_react.useMemo)(() => makeExhibitPlacardTexture("PRJ-01", "BIONIC HAND", "5-AXIS TENDON DRIVE · EMG", "#f43f5e"), []);
@@ -13942,26 +13748,7 @@ function Zone10ProjectShowcase() {
 						opacity: .35
 					})]
 				}),
-				Array.from({ length: 36 }).map((_, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("mesh", {
-					position: [
-						-.015,
-						0,
-						-2 + i * .114
-					],
-					rotation: [
-						0,
-						-Math.PI / 2,
-						0
-					],
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("boxGeometry", { args: [
-						.035,
-						2.65,
-						.014
-					] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("meshStandardMaterial", {
-						color: "#1e293b",
-						roughness: .6
-					})]
-				}, i)),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ProjectWallSlats, {}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("mesh", {
 					position: [
 						-.04,
@@ -14568,36 +14355,6 @@ function Zone10ProjectShowcase() {
 				emissiveIntensity: .8,
 				toneMapped: false
 			})]
-		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)("pointLight", {
-			position: [
-				4.2,
-				2.4,
-				-.45
-			],
-			color: "#fff1f2",
-			intensity: 1.1,
-			distance: 3.8
-		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)("pointLight", {
-			position: [
-				4.2,
-				2.4,
-				.55
-			],
-			color: "#fef08a",
-			intensity: 1.2,
-			distance: 3.8
-		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)("pointLight", {
-			position: [
-				4.2,
-				2.4,
-				1.55
-			],
-			color: "#e0f2fe",
-			intensity: 1.1,
-			distance: 3.8
 		})
 	] });
 }
@@ -14640,6 +14397,12 @@ function colliding(x, z) {
 function codesHas(code) {
 	return held.has(code) || injected.includes(code);
 }
+var tmpDest = new Vector3();
+var tmpTgt = new Vector3();
+var tmpForward = new Vector3();
+var tmpRight = new Vector3();
+var tmpMove = new Vector3();
+var tmpLook = new Vector3();
 function CameraRig() {
 	const mode = useLab((s) => s.mode);
 	const flyTo = useLab((s) => s.flyTo);
@@ -14737,14 +14500,14 @@ function CameraRig() {
 	useFrame((_, delta) => {
 		const dt = Math.min(delta, .1);
 		if (mode === "orbit" && flyTo && controls.current) {
-			const dest = new Vector3(...flyTo.position);
-			const tgt = new Vector3(...flyTo.target);
-			camera.position.lerp(dest, 1 - Math.exp(-dt * 4.2));
-			controls.current.target.lerp(tgt, 1 - Math.exp(-dt * 4.2));
+			tmpDest.set(...flyTo.position);
+			tmpTgt.set(...flyTo.target);
+			camera.position.lerp(tmpDest, 1 - Math.exp(-dt * 4.5));
+			controls.current.target.lerp(tmpTgt, 1 - Math.exp(-dt * 4.5));
 			controls.current.update();
-			if (camera.position.distanceTo(dest) < .04 && controls.current.target.distanceTo(tgt) < .04) {
-				camera.position.copy(dest);
-				controls.current.target.copy(tgt);
+			if (camera.position.distanceTo(tmpDest) < .04 && controls.current.target.distanceTo(tmpTgt) < .04) {
+				camera.position.copy(tmpDest);
+				controls.current.target.copy(tmpTgt);
 				controls.current.update();
 				useLab.getState().clearFlyTo();
 			}
@@ -14763,19 +14526,19 @@ function CameraRig() {
 			ax /= mag;
 			az /= mag;
 		}
-		const forward = new Vector3(-Math.sin(pawn.yaw), 0, -Math.cos(pawn.yaw));
-		const right = new Vector3(Math.cos(pawn.yaw), 0, -Math.sin(pawn.yaw));
-		const move = forward.multiplyScalar(az).add(right.multiplyScalar(ax));
+		tmpForward.set(-Math.sin(pawn.yaw), 0, -Math.cos(pawn.yaw));
+		tmpRight.set(Math.cos(pawn.yaw), 0, -Math.sin(pawn.yaw));
+		tmpMove.copy(tmpForward).multiplyScalar(az).addScaledVector(tmpRight, ax);
 		const sp = SPEED * sprint;
-		const nx = pawn.x + move.x * sp * dt;
-		const nz = pawn.z + move.z * sp * dt;
+		const nx = pawn.x + tmpMove.x * sp * dt;
+		const nz = pawn.z + tmpMove.z * sp * dt;
 		if (Math.abs(nx) < HALF_W && !colliding(nx, pawn.z)) pawn.x = nx;
 		if (Math.abs(nz) < HALF_D && !colliding(pawn.x, nz)) pawn.z = nz;
 		pawn.speed = mag * sp;
 		if (mode === "walk") {
 			camera.position.set(pawn.x, EYE, pawn.z);
-			const look = new Vector3(pawn.x - Math.sin(pawn.yaw) * Math.cos(pawn.pitch), EYE + Math.sin(pawn.pitch), pawn.z - Math.cos(pawn.yaw) * Math.cos(pawn.pitch));
-			camera.lookAt(look);
+			tmpLook.set(pawn.x - Math.sin(pawn.yaw) * Math.cos(pawn.pitch), EYE + Math.sin(pawn.pitch), pawn.z - Math.cos(pawn.yaw) * Math.cos(pawn.pitch));
+			camera.lookAt(tmpLook);
 		}
 	});
 	if (mode !== "orbit") return null;
@@ -14783,10 +14546,10 @@ function CameraRig() {
 		ref: controls,
 		makeDefault: true,
 		enableDamping: true,
-		dampingFactor: .07,
-		rotateSpeed: .88,
-		panSpeed: .85,
-		zoomSpeed: 1.2,
+		dampingFactor: .12,
+		rotateSpeed: .95,
+		panSpeed: .9,
+		zoomSpeed: 1.15,
 		screenSpacePanning: true,
 		minDistance: .6,
 		maxDistance: 25,
@@ -14937,7 +14700,9 @@ function TexturedWorld() {
 			opacity: .38,
 			scale: 16,
 			blur: 2.2,
-			far: 3.5
+			far: 3.5,
+			frames: 1,
+			resolution: 512
 		})
 	] });
 }
@@ -14952,14 +14717,30 @@ function LabScene() {
 	] });
 }
 function CanvasApp() {
+	const isDraggingRef = (0, import_react.useRef)(false);
+	(0, import_react.useEffect)(() => {
+		const onDown = () => {
+			isDraggingRef.current = true;
+		};
+		const onUp = () => {
+			isDraggingRef.current = false;
+		};
+		window.addEventListener("pointerdown", onDown, { capture: true });
+		window.addEventListener("pointerup", onUp, { capture: true });
+		window.addEventListener("pointercancel", onUp, { capture: true });
+		return () => {
+			window.removeEventListener("pointerdown", onDown, { capture: true });
+			window.removeEventListener("pointerup", onUp, { capture: true });
+			window.removeEventListener("pointercancel", onUp, { capture: true });
+		};
+	}, []);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Canvas, {
 		className: "absolute inset-0 touch-none cursor-grab active:cursor-grabbing",
 		shadows: true,
-		dpr: [1, 1.6],
+		dpr: [1, 1.25],
 		gl: {
 			antialias: true,
-			powerPreference: "high-performance",
-			logarithmicDepthBuffer: true
+			powerPreference: "high-performance"
 		},
 		camera: {
 			fov: 42,
@@ -14971,8 +14752,17 @@ function CanvasApp() {
 			near: .1,
 			far: 80
 		},
-		onCreated: ({ gl }) => {
+		onCreated: ({ gl, scene, raycaster }) => {
 			gl.setClearColor("#b7c4d4");
+			if (typeof window !== "undefined") {
+				window.__gl = gl;
+				window.__scene = scene;
+			}
+			const origIntersectObjects = raycaster.intersectObjects;
+			raycaster.intersectObjects = function(objects, recursive, target) {
+				if (isDraggingRef.current) return target || [];
+				return origIntersectObjects.call(this, objects, recursive, target);
+			};
 		},
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LabScene, {})
 	});

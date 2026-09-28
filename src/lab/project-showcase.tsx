@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
@@ -315,13 +315,6 @@ function ExhibitionBay({
               toneMapped={false}
             />
           </mesh>
-          <pointLight
-            position={[0, -0.1, 0]}
-            color={accentColor}
-            intensity={0.6}
-            distance={1.1}
-            decay={2}
-          />
         </group>
       ))}
 
@@ -783,6 +776,26 @@ function FpvRacingDroneExhibit({ position }: { position: [number, number, number
   );
 }
 
+function ProjectWallSlats() {
+  const meshRef = useRef<THREE.InstancedMesh>(null);
+  const geo = useMemo(() => new THREE.BoxGeometry(0.035, 2.65, 0.014), []);
+  const mat = useMemo(() => new THREE.MeshStandardMaterial({ color: "#1e293b", roughness: 0.6 }), []);
+
+  useEffect(() => {
+    if (!meshRef.current) return;
+    const dummy = new THREE.Object3D();
+    for (let i = 0; i < 36; i++) {
+      dummy.position.set(-0.015, 0, -2.0 + i * 0.114);
+      dummy.rotation.set(0, -Math.PI / 2, 0);
+      dummy.updateMatrix();
+      meshRef.current.setMatrixAt(i, dummy.matrix);
+    }
+    meshRef.current.instanceMatrix.needsUpdate = true;
+  }, []);
+
+  return <instancedMesh ref={meshRef} args={[geo, mat, 36]} />;
+}
+
 // -------------------------------------------------------------
 // COMPLETE ZONE 10 PROJECT DISPLAY & INNOVATION WALL
 // -------------------------------------------------------------
@@ -873,16 +886,7 @@ export function Zone10ProjectShowcase() {
         </mesh>
 
         {/* Vertical Architectural Wood/Metal Slats on the wall */}
-        {Array.from({ length: 36 }).map((_, i) => (
-          <mesh
-            key={i}
-            position={[-0.015, 0, -2.0 + i * 0.114]}
-            rotation={[0, -Math.PI / 2, 0]}
-          >
-            <boxGeometry args={[0.035, 2.65, 0.014]} />
-            <meshStandardMaterial color="#1e293b" roughness={0.6} />
-          </mesh>
-        ))}
+        <ProjectWallSlats />
 
         {/* Floating Illuminated Overhead Lab Sign above the shelves */}
         <mesh position={[-0.04, 0.98, 0]} rotation={[0, -Math.PI / 2, 0]}>
@@ -1098,13 +1102,6 @@ export function Zone10ProjectShowcase() {
           toneMapped={false}
         />
       </mesh>
-
-      {/* -------------------------------------------------------------
-          5. OVERHEAD GALLERY SPOTLIGHTS
-          ------------------------------------------------------------- */}
-      <pointLight position={[4.2, 2.4, -0.45]} color="#fff1f2" intensity={1.1} distance={3.8} />
-      <pointLight position={[4.2, 2.4, 0.55]} color="#fef08a" intensity={1.2} distance={3.8} />
-      <pointLight position={[4.2, 2.4, 1.55]} color="#e0f2fe" intensity={1.1} distance={3.8} />
     </group>
   );
 }

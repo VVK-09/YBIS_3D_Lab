@@ -32,6 +32,13 @@ function codesHas(code: string) {
   return held.has(code) || injected.includes(code);
 }
 
+const tmpDest = new THREE.Vector3();
+const tmpTgt = new THREE.Vector3();
+const tmpForward = new THREE.Vector3();
+const tmpRight = new THREE.Vector3();
+const tmpMove = new THREE.Vector3();
+const tmpLook = new THREE.Vector3();
+
 export function CameraRig() {
   const mode = useLab((s) => s.mode);
   const flyTo = useLab((s) => s.flyTo);
@@ -119,19 +126,19 @@ export function CameraRig() {
     const dt = Math.min(delta, 0.1);
 
     if (mode === "orbit" && flyTo && controls.current) {
-      const dest = new THREE.Vector3(...flyTo.position);
-      const tgt = new THREE.Vector3(...flyTo.target);
-      camera.position.lerp(dest, 1 - Math.exp(-dt * 4.2));
-      controls.current.target.lerp(tgt, 1 - Math.exp(-dt * 4.2));
+      tmpDest.set(...flyTo.position);
+      tmpTgt.set(...flyTo.target);
+      camera.position.lerp(tmpDest, 1 - Math.exp(-dt * 4.5));
+      controls.current.target.lerp(tmpTgt, 1 - Math.exp(-dt * 4.5));
       controls.current.update();
 
       // When arrived close to destination, release to free mouse control immediately!
       if (
-        camera.position.distanceTo(dest) < 0.04 &&
-        controls.current.target.distanceTo(tgt) < 0.04
+        camera.position.distanceTo(tmpDest) < 0.04 &&
+        controls.current.target.distanceTo(tmpTgt) < 0.04
       ) {
-        camera.position.copy(dest);
-        controls.current.target.copy(tgt);
+        camera.position.copy(tmpDest);
+        controls.current.target.copy(tmpTgt);
         controls.current.update();
         useLab.getState().clearFlyTo();
       }
@@ -152,24 +159,25 @@ export function CameraRig() {
       az /= mag;
     }
 
-    const forward = new THREE.Vector3(-Math.sin(pawn.yaw), 0, -Math.cos(pawn.yaw));
-    const right = new THREE.Vector3(Math.cos(pawn.yaw), 0, -Math.sin(pawn.yaw));
-    const move = forward.multiplyScalar(az).add(right.multiplyScalar(ax));
+    tmpForward.set(-Math.sin(pawn.yaw), 0, -Math.cos(pawn.yaw));
+    tmpRight.set(Math.cos(pawn.yaw), 0, -Math.sin(pawn.yaw));
+    tmpMove.copy(tmpForward).multiplyScalar(az).addScaledVector(tmpRight, ax);
+
     const sp = SPEED * sprint;
-    const nx = pawn.x + move.x * sp * dt;
-    const nz = pawn.z + move.z * sp * dt;
+    const nx = pawn.x + tmpMove.x * sp * dt;
+    const nz = pawn.z + tmpMove.z * sp * dt;
     if (Math.abs(nx) < HALF_W && !colliding(nx, pawn.z)) pawn.x = nx;
     if (Math.abs(nz) < HALF_D && !colliding(pawn.x, nz)) pawn.z = nz;
     pawn.speed = mag * sp;
 
     if (mode === "walk") {
       camera.position.set(pawn.x, EYE, pawn.z);
-      const look = new THREE.Vector3(
+      tmpLook.set(
         pawn.x - Math.sin(pawn.yaw) * Math.cos(pawn.pitch),
         EYE + Math.sin(pawn.pitch),
         pawn.z - Math.cos(pawn.yaw) * Math.cos(pawn.pitch),
       );
-      camera.lookAt(look);
+      camera.lookAt(tmpLook);
     }
   });
 
@@ -180,10 +188,10 @@ export function CameraRig() {
       ref={controls}
       makeDefault
       enableDamping
-      dampingFactor={0.07}
-      rotateSpeed={0.88}
-      panSpeed={0.85}
-      zoomSpeed={1.2}
+      dampingFactor={0.12}
+      rotateSpeed={0.95}
+      panSpeed={0.9}
+      zoomSpeed={1.15}
       screenSpacePanning
       minDistance={0.6}
       maxDistance={25}

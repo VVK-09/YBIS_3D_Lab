@@ -307,9 +307,6 @@ export function Zone9SpatialVRShowcase({ mural }: { mural?: THREE.Texture }) {
           </group>
         ))}
       </group>
-
-      {/* Atmospheric Soft Cyan Downlight */}
-      <pointLight position={[0, 2.2, 0.8]} color="#7dd3fc" intensity={1.4} distance={3.8} />
     </group>
   );
 }

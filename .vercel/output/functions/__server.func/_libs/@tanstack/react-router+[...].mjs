@@ -1,5 +1,5 @@
 import { i as __toESM, r as __require, t as __commonJSMin } from "../../_runtime.mjs";
-import { _ as require_react, g as require_jsx_runtime, l as require_with_selector } from "../@react-three/drei+[...].mjs";
+import { S as require_react, l as require_with_selector, x as require_jsx_runtime } from "../@react-three/drei+[...].mjs";
 import { r as parseHref } from "../tanstack__history.mjs";
 import { PassThrough, Readable } from "node:stream";
 import { ReadableStream as ReadableStream$1 } from "node:stream/web";

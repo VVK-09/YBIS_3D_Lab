@@ -187,26 +187,24 @@ export function Lights() {
     <>
       <color attach="background" args={["#b7c4d4"]} />
       <fog attach="fog" args={["#b7c4d4", 18, 38]} />
-      <hemisphereLight args={["#fff4e6", "#8aa0b8", 0.55]} />
-      <ambientLight intensity={0.34} />
+      <hemisphereLight args={["#fff4e6", "#8aa0b8", 0.7]} />
+      <ambientLight intensity={0.42} />
       <directionalLight
         position={[2.5, 8.2, 6.2]}
-        intensity={1.25}
+        intensity={1.35}
         castShadow
         shadow-mapSize={[1024, 1024]}
-        shadow-bias={-0.0002}
+        shadow-bias={-0.0003}
         shadow-camera-near={1}
         shadow-camera-far={28}
-        shadow-camera-left={-10}
-        shadow-camera-right={10}
-        shadow-camera-top={10}
-        shadow-camera-bottom={-10}
+        shadow-camera-left={-9}
+        shadow-camera-right={9}
+        shadow-camera-top={9}
+        shadow-camera-bottom={-9}
       />
-      <pointLight position={[-4.2, 2.3, -3.4]} color="#ffe7b8" intensity={0.5} distance={5} />
-      <pointLight position={[2.4, 2.2, -3.4]} color="#38bdf8" intensity={0.75} distance={4.5} />
-      <pointLight position={[4.8, 2.2, -2.4]} color="#7dd3fc" intensity={0.4} distance={4} />
-      <pointLight position={[-4.3, 2.0, 2.5]} color="#f9a8d4" intensity={0.35} distance={3.5} />
-      <pointLight position={[0, 2.9, 2.2]} color="#fff7ed" intensity={0.4} distance={7} />
+      <pointLight position={[-3.2, 2.4, -3.0]} color="#ffe7b8" intensity={0.65} distance={8} />
+      <pointLight position={[3.0, 2.4, -3.0]} color="#38bdf8" intensity={0.8} distance={8} />
+      <pointLight position={[0, 2.8, 2.0]} color="#ffffff" intensity={0.5} distance={9} />
     </>
   );
 }

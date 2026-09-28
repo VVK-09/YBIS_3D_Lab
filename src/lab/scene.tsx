@@ -69,7 +69,15 @@ function TexturedWorld() {
           droneMat: generated.droneMat,
         }}
       />
-      <ContactShadows position={[0, 0.01, 0]} opacity={0.38} scale={16} blur={2.2} far={3.5} />
+      <ContactShadows
+        position={[0, 0.01, 0]}
+        opacity={0.38}
+        scale={16}
+        blur={2.2}
+        far={3.5}
+        frames={1}
+        resolution={512}
+      />
     </>
   );
 }

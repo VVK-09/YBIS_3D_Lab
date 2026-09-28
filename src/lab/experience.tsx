@@ -16,10 +16,10 @@ export function Experience() {
       <div
         className="h-full w-full"
         style={{
-          filter: isBlurred ? "blur(24px) brightness(1.03) saturate(1.15)" : "blur(0px) brightness(1) saturate(1)",
-          transform: isBlurred ? "scale(1.06)" : "scale(1)",
+          filter: isBlurred ? "blur(24px) brightness(1.03) saturate(1.15)" : "none",
+          transform: isBlurred ? "scale(1.06)" : "none",
           transition: "filter 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1)",
-          willChange: "filter, transform",
+          willChange: isBlurred ? "filter, transform" : "auto",
         }}
       >
         {mounted ? (

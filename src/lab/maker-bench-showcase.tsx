@@ -429,10 +429,6 @@ export function Zone3BreakBuildShowcase() {
           </mesh>
         </group>
       ))}
-
-      {/* 5. Overhead Daylight Spotlights */}
-      <pointLight position={[-0.45, 2.1, 0.1]} color="#ffffff" intensity={1.6} distance={2.5} />
-      <pointLight position={[0.45, 2.1, 0.1]} color="#ffffff" intensity={1.6} distance={2.5} />
     </group>
   );
 }
