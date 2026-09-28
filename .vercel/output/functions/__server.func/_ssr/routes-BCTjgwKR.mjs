@@ -1,9 +1,9 @@
 import { i as __toESM } from "../_runtime.mjs";
-import { C as require_react, S as require_jsx_runtime, a as useProgress, o as create } from "../_libs/@react-three/drei+[...].mjs";
+import { C as require_jsx_runtime, a as useProgress, o as create, w as require_react } from "../_libs/@react-three/drei+[...].mjs";
 import { a as Play, c as MapPinned, d as Compass, f as ChevronUp, g as ArrowRight, h as ChevronDown, i as RotateCcw, l as LayoutGrid, m as ChevronLeft, n as Users, o as Phone, p as ChevronRight, s as Maximize2, t as X, u as Footprints } from "../_libs/lucide-react.mjs";
 import { n as clsx, t as cva } from "../_libs/class-variance-authority+clsx.mjs";
 import { t as twMerge } from "../_libs/tailwind-merge.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-CqfCkJzx.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-BCTjgwKR.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var __defProp = Object.defineProperty;
@@ -401,8 +401,8 @@ var useLab = create((set, get) => ({
 		flyTo: {
 			position: [
 				.6,
-				9.4,
-				11.2
+				9.6,
+				11.6
 			],
 			target: [
 				0,
@@ -1323,7 +1323,7 @@ function CircularPreloader() {
 		]
 	});
 }
-var CanvasApp = (0, import_react.lazy)(() => import("./canvas-LjSfGeEF.mjs"));
+var CanvasApp = (0, import_react.lazy)(() => import("./canvas-B_V8Q5mu.mjs"));
 function Experience() {
 	const [mounted, setMounted] = (0, import_react.useState)(false);
 	const phase = useLab((s) => s.phase);

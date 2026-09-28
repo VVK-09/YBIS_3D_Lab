@@ -32,7 +32,7 @@ export default function CanvasApp() {
         antialias: true,
         powerPreference: "high-performance",
       }}
-      camera={{ fov: 42, position: [0.6, 9.4, 11.2], near: 0.1, far: 80 }}
+      camera={{ fov: 42, position: [0.6, 9.6, 11.6], near: 0.1, far: 80 }}
       onCreated={({ gl, scene, raycaster }) => {
         gl.setClearColor("#b7c4d4");
         // Expose renderer info for performance profiling

@@ -1,7 +1,7 @@
 import { i as __toESM } from "../_runtime.mjs";
-import { C as require_react, S as require_jsx_runtime, _ as PlaneGeometry, b as SphereGeometry, c as Canvas, f as BoxGeometry, g as Object3D, h as MeshStandardMaterial, i as Billboard, l as useFrame, m as CylinderGeometry, n as OrbitControls, p as CanvasTexture, r as useTexture, s as useCursor, t as ContactShadows, u as useThree, v as RepeatWrapping, x as Vector3, y as SRGBColorSpace } from "../_libs/@react-three/drei+[...].mjs";
-import { a as TABLE_LAYOUT, i as ROOM, n as useLab, o as ZONES, r as COLLIDERS } from "./routes-CqfCkJzx.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/canvas-LjSfGeEF.js
+import { C as require_jsx_runtime, S as Vector3, _ as Object3D, b as SRGBColorSpace, c as Canvas, f as BoxGeometry, g as MeshStandardMaterial, h as CylinderGeometry, i as Billboard, l as useFrame, m as Color, n as OrbitControls, p as CanvasTexture, r as useTexture, s as useCursor, t as ContactShadows, u as useThree, v as PlaneGeometry, w as require_react, x as SphereGeometry, y as RepeatWrapping } from "../_libs/@react-three/drei+[...].mjs";
+import { a as TABLE_LAYOUT, i as ROOM, n as useLab, o as ZONES, r as COLLIDERS } from "./routes-BCTjgwKR.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/canvas-B_V8Q5mu.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var NAVY = "#092244";
@@ -467,6 +467,7 @@ function Room({ floorMap, logo, whiteLogo, schoolLogo, schoolLogoDark, coBranded
 			schoolLogo,
 			coBrandedEntrance
 		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CampusBrandingMonument, { logo: schoolLogo }),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("group", {
 			position: [
 				0,
@@ -549,6 +550,163 @@ function Room({ floorMap, logo, whiteLogo, schoolLogo, schoolLogoDark, coBranded
 			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plant, { scale: 1.05 })
 		})
 	] });
+}
+function CampusBrandingMonument({ logo }) {
+	const subBanner = (0, import_react.useMemo)(() => makeMonumentSubBanner(), []);
+	const glowTex = (0, import_react.useMemo)(() => makeRadialGlowTexture(), []);
+	const monumentW = 6.4;
+	const monumentH = 1.62;
+	const logoW = 4.8;
+	const logoH = logoW / 3.767;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("group", {
+		position: [
+			0,
+			3.52,
+			-d / 2 - 1.15
+		],
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("mesh", {
+				position: [
+					0,
+					0,
+					-.06
+				],
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("planeGeometry", { args: [9.600000000000001, 3.8200000000000003] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("meshBasicMaterial", {
+					map: glowTex,
+					transparent: true,
+					opacity: .88,
+					blending: 2,
+					depthWrite: false
+				})]
+			}),
+			[-2.35, 2.35].map((x, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("group", {
+				position: [
+					x,
+					-1.7,
+					-.01
+				],
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("mesh", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("boxGeometry", { args: [
+					.09,
+					3.65,
+					.12
+				] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("meshStandardMaterial", {
+					color: "#64748b",
+					metalness: .85,
+					roughness: .22
+				})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("mesh", {
+					position: [
+						0,
+						-1.78,
+						0
+					],
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("boxGeometry", { args: [
+						.3,
+						.09,
+						.3
+					] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("meshStandardMaterial", {
+						color: "#334155",
+						metalness: .8,
+						roughness: .3
+					})]
+				})]
+			}, i)),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("mesh", {
+				position: [
+					0,
+					0,
+					0
+				],
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("boxGeometry", { args: [
+					6.48,
+					1.7000000000000002,
+					.04
+				] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("meshStandardMaterial", {
+					color: "#00b4d8",
+					emissive: "#00b4d8",
+					emissiveIntensity: .92,
+					toneMapped: false
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("mesh", {
+				position: [
+					0,
+					0,
+					.02
+				],
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("boxGeometry", { args: [
+					monumentW,
+					monumentH,
+					.08
+				] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("meshStandardMaterial", {
+					color: "#050e1a",
+					metalness: .75,
+					roughness: .2
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("mesh", {
+				position: [
+					0,
+					.8250000000000001,
+					.05
+				],
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("boxGeometry", { args: [
+					6.2,
+					.025,
+					.05
+				] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("meshStandardMaterial", {
+					color: "#bae6fd",
+					emissive: "#38bdf8",
+					emissiveIntensity: 1.2,
+					toneMapped: false
+				})]
+			}),
+			logo && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("mesh", {
+				position: [
+					0,
+					.12,
+					.065
+				],
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("planeGeometry", { args: [logoW, logoH] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("meshStandardMaterial", {
+					map: logo,
+					transparent: true,
+					roughness: .15,
+					metalness: .08,
+					emissiveMap: logo,
+					emissive: new Color("#ffffff"),
+					emissiveIntensity: .7,
+					toneMapped: false
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("mesh", {
+				position: [
+					0,
+					-.66,
+					.065
+				],
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("planeGeometry", { args: [logoW, .32] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("meshBasicMaterial", {
+					map: subBanner,
+					transparent: true
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("mesh", {
+				position: [
+					0,
+					0,
+					-.042
+				],
+				rotation: [
+					0,
+					Math.PI,
+					0
+				],
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("planeGeometry", { args: [6.3500000000000005, 1.57] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("meshStandardMaterial", {
+					color: "#091b31",
+					metalness: .82,
+					roughness: .3
+				})]
+			})
+		]
+	});
 }
 function EntranceWall({ whiteLogo, schoolLogo, coBrandedEntrance }) {
 	const z = d / 2 - .12;
@@ -691,6 +849,55 @@ function makeTitleSign() {
 	tex.needsUpdate = true;
 	return tex;
 }
+function makeRadialGlowTexture() {
+	const c = document.createElement("canvas");
+	c.width = 512;
+	c.height = 512;
+	const ctx = c.getContext("2d");
+	const grad = ctx.createRadialGradient(256, 256, 12, 256, 256, 256);
+	grad.addColorStop(0, "rgba(56, 189, 248, 0.45)");
+	grad.addColorStop(.35, "rgba(14, 165, 233, 0.22)");
+	grad.addColorStop(.7, "rgba(2, 132, 199, 0.08)");
+	grad.addColorStop(1, "rgba(0, 0, 0, 0)");
+	ctx.fillStyle = grad;
+	ctx.fillRect(0, 0, 512, 512);
+	const tex = new CanvasTexture(c);
+	tex.colorSpace = SRGBColorSpace;
+	tex.needsUpdate = true;
+	return tex;
+}
+function makeMonumentSubBanner() {
+	const c = document.createElement("canvas");
+	c.width = 2048;
+	c.height = 256;
+	const ctx = c.getContext("2d");
+	ctx.clearRect(0, 0, 2048, 256);
+	const grad = ctx.createLinearGradient(0, 0, 2048, 0);
+	grad.addColorStop(0, "rgba(8, 28, 54, 0)");
+	grad.addColorStop(.12, "rgba(12, 38, 72, 0.75)");
+	grad.addColorStop(.5, "rgba(14, 46, 88, 0.9)");
+	grad.addColorStop(.88, "rgba(12, 38, 72, 0.75)");
+	grad.addColorStop(1, "rgba(8, 28, 54, 0)");
+	ctx.fillStyle = grad;
+	ctx.roundRect(80, 20, 1888, 216, 24);
+	ctx.fill();
+	ctx.strokeStyle = "rgba(56, 189, 248, 0.45)";
+	ctx.lineWidth = 2;
+	ctx.stroke();
+	ctx.textAlign = "center";
+	ctx.textBaseline = "middle";
+	ctx.fillStyle = "#38bdf8";
+	ctx.font = "700 46px 'Outfit', sans-serif, system-ui";
+	ctx.fillText("CBSE CURRICULUM STEM & AI INNOVATION CENTER", 1024, 88);
+	ctx.fillStyle = "#e2e8f0";
+	ctx.font = "600 30px 'Plus Jakarta Sans', sans-serif, system-ui";
+	ctx.fillText("AFFILIATION NO. 1130979   ·   ESTD. 2016   ·   SAWANTWADI", 1024, 158);
+	const tex = new CanvasTexture(c);
+	tex.colorSpace = SRGBColorSpace;
+	tex.anisotropy = 8;
+	tex.needsUpdate = true;
+	return tex;
+}
 function Lights() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)("color", {
@@ -701,8 +908,8 @@ function Lights() {
 			attach: "fog",
 			args: [
 				"#b7c4d4",
-				18,
-				38
+				22,
+				48
 			]
 		}),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)("hemisphereLight", { args: [
@@ -14746,8 +14953,8 @@ function CanvasApp() {
 			fov: 42,
 			position: [
 				.6,
-				9.4,
-				11.2
+				9.6,
+				11.6
 			],
 			near: .1,
 			far: 80

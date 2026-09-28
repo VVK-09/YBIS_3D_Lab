@@ -61759,4 +61759,4 @@ var ContactShadows = /* @__PURE__ */ import_react.forwardRef(({ scale = 10, fram
 	}));
 });
 //#endregion
-export { require_react as C, require_jsx_runtime as S, PlaneGeometry as _, useProgress as a, SphereGeometry as b, Canvas as c, require_with_selector as d, BoxGeometry as f, Object3D as g, MeshStandardMaterial as h, Billboard as i, useFrame as l, CylinderGeometry as m, OrbitControls as n, create as o, CanvasTexture as p, useTexture as r, useCursor as s, ContactShadows as t, useThree as u, RepeatWrapping as v, Vector3 as x, SRGBColorSpace as y };
+export { require_jsx_runtime as C, Vector3 as S, Object3D as _, useProgress as a, SRGBColorSpace as b, Canvas as c, require_with_selector as d, BoxGeometry as f, MeshStandardMaterial as g, CylinderGeometry as h, Billboard as i, useFrame as l, Color as m, OrbitControls as n, create as o, CanvasTexture as p, useTexture as r, useCursor as s, ContactShadows as t, useThree as u, PlaneGeometry as v, require_react as w, SphereGeometry as x, RepeatWrapping as y };

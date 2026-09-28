@@ -10,7 +10,7 @@ export type FlyTo = {
 };
 
 export const INITIAL_VIEW: FlyTo = {
-  position: [0.6, 9.4, 11.2],
+  position: [0.6, 9.6, 11.6],
   target: [0, 0.55, -0.2],
 };
 
@@ -52,7 +52,7 @@ export const useLab = create<LabState>((set, get) => ({
       mode: "orbit",
       selected: null,
       tourOn: false,
-      flyTo: { position: [0.6, 9.4, 11.2], target: [0, 0.55, -0.2] },
+      flyTo: { position: [0.6, 9.6, 11.6], target: [0, 0.55, -0.2] },
     }),
   select: (id) => {
     if (id == null) {
