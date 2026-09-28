@@ -92,9 +92,9 @@ export const ZONES: Zone[] = [
       "5-Finger Cybernetic Bionic Hand with Tendons",
       "ROS2 Teach Pendant & Controller Console",
     ],
-    pos: [2.45, 1.52, -3.2],
+    pos: [2.45, 1.55, -2.85],
     view: [2.3, 1.7, -0.6],
-    target: [2.45, 0.95, -3.55],
+    target: [2.45, 1.25, -3.55],
   },
   {
     id: 5,

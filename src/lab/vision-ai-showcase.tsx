@@ -290,11 +290,11 @@ export function Zone1VisionAiShowcase({ map }: { map?: THREE.Texture }) {
       {/* 1. Architectural Back Wall Cladding & Overhead Sign */}
       <group position={[0, 1.95, -0.58]}>
         <mesh position={[0, 0, 0]}>
-          <boxGeometry args={[2.55, 0.95, 0.02]} />
+          <boxGeometry args={[2.25, 0.95, 0.02]} />
           <meshStandardMaterial color="#f1f5f9" roughness={0.5} />
         </mesh>
         <mesh position={[0, 0.18, 0.015]}>
-          <planeGeometry args={[2.3, 0.44]} />
+          <planeGeometry args={[2.15, 0.44]} />
           <meshStandardMaterial
             map={bannerTex}
             emissive="#ffffff"

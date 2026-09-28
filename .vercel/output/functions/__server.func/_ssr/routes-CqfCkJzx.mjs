@@ -1,10 +1,9 @@
 import { i as __toESM } from "../_runtime.mjs";
-import { S as require_react, x as require_jsx_runtime } from "../_libs/@react-three/drei+[...].mjs";
-import { t as create } from "../_libs/zustand.mjs";
+import { C as require_react, S as require_jsx_runtime, a as useProgress, o as create } from "../_libs/@react-three/drei+[...].mjs";
 import { a as Play, c as MapPinned, d as Compass, f as ChevronUp, g as ArrowRight, h as ChevronDown, i as RotateCcw, l as LayoutGrid, m as ChevronLeft, n as Users, o as Phone, p as ChevronRight, s as Maximize2, t as X, u as Footprints } from "../_libs/lucide-react.mjs";
 import { n as clsx, t as cva } from "../_libs/class-variance-authority+clsx.mjs";
 import { t as twMerge } from "../_libs/tailwind-merge.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-DACwywu8.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-CqfCkJzx.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var __defProp = Object.defineProperty;
@@ -126,8 +125,8 @@ var ZONES = [
 		],
 		pos: [
 			2.45,
-			1.52,
-			-3.2
+			1.55,
+			-2.85
 		],
 		view: [
 			2.3,
@@ -136,7 +135,7 @@ var ZONES = [
 		],
 		target: [
 			2.45,
-			.95,
+			1.25,
 			-3.55
 		]
 	},
@@ -507,13 +506,7 @@ function Button({ className, variant, size, ...props }) {
 function Overlay() {
 	const phase = useLab((s) => s.phase);
 	const setPhase = useLab((s) => s.setPhase);
-	(0, import_react.useEffect)(() => {
-		const t = window.setTimeout(() => {
-			if (useLab.getState().phase === "boot") setPhase("welcome");
-		}, 900);
-		return () => window.clearTimeout(t);
-	}, [setPhase]);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [phase !== "explore" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [phase === "welcome" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "pointer-events-auto fixed inset-0 z-40 flex items-center justify-center p-3.5 sm:p-6 md:p-8 overflow-hidden select-none transition-all duration-500",
 		style: {
 			backgroundColor: "rgba(241, 245, 249, 0.55)",
@@ -553,23 +546,6 @@ function Overlay() {
 						})
 					]
 				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "mb-2.5 sm:mb-3 inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-sky-200/80 bg-gradient-to-r from-sky-50 to-blue-50/80 px-3 sm:px-3.5 py-1 text-[10px] sm:text-[11px] font-semibold tracking-wider text-sky-800 uppercase shadow-xs",
-					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-							className: "flex items-center gap-1.5",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "inline-block size-1.5 rounded-full bg-sky-500 animate-pulse" }), "Academic Partnership"]
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							className: "text-sky-300",
-							children: "•"
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							className: "text-slate-600 font-medium",
-							children: SCHOOL.affiliation
-						})
-					]
-				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
 					className: "font-display text-xl font-extrabold tracking-tight text-[#092244] sm:text-3xl md:text-[34px] leading-tight",
 					children: SCHOOL.name
@@ -582,34 +558,31 @@ function Overlay() {
 					className: "mt-2 sm:mt-2.5 max-w-md text-xs sm:text-sm leading-relaxed text-slate-500 font-normal",
 					children: "Hands-on Learning · Real-World Skills · Innovation & Creativity · Future Ready"
 				}),
-				phase === "boot" ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "mt-6 sm:mt-7 flex flex-col items-center gap-2",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						className: "h-1.5 w-48 overflow-hidden rounded-full bg-slate-100 p-0.5 border border-slate-200",
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "h-full w-2/3 animate-pulse rounded-full bg-gradient-to-r from-sky-500 to-blue-600" })
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-						className: "text-[11px] font-medium tracking-wider text-slate-400 uppercase",
-						children: "Preparing 3D Lab..."
-					})]
-				}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "mt-5 sm:mt-7 flex w-full max-w-md flex-col gap-3 sm:gap-2.5 sm:flex-row",
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "mt-6 sm:mt-7 flex w-full max-w-md flex-col gap-4 sm:gap-2.5 sm:flex-row",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
 						type: "button",
 						onClick: () => setPhase("explore"),
-						className: "group flex h-14 sm:h-12 w-full flex-1 items-center justify-center gap-2.5 sm:gap-2 rounded-2xl sm:rounded-xl bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 px-6 sm:px-5 font-display text-base sm:text-sm font-bold text-white shadow-lg shadow-sky-500/25 transition-all duration-200 hover:shadow-xl hover:shadow-sky-500/40 hover:brightness-105 active:scale-[0.98]",
+						className: "group flex h-[68px] sm:h-12 w-full sm:flex-1 shrink-0 items-center justify-center gap-3.5 sm:gap-2 rounded-full sm:rounded-xl bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 px-7 sm:px-5 font-display text-lg sm:text-sm font-bold sm:font-semibold text-white shadow-xl shadow-sky-500/35 transition-all duration-200 hover:shadow-2xl hover:shadow-sky-500/45 hover:brightness-105 active:scale-[0.98]",
 						children: [
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Compass, { className: "size-5 sm:size-4 transition-transform duration-300 group-hover:rotate-45" }),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Enter 3D Lab" }),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowRight, { className: "size-5 sm:size-4 text-white/80 transition-transform duration-200 group-hover:translate-x-0.5" })
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Compass, { className: "size-6 sm:size-4 transition-transform duration-300 group-hover:rotate-45" }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "tracking-wide",
+								children: "Enter 3D Lab"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowRight, { className: "size-5 sm:size-4 text-white/90 transition-transform duration-200 group-hover:translate-x-0.5" })
 						]
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
 						type: "button",
 						onClick: () => useLab.getState().startTour(),
-						className: "group flex h-14 sm:h-12 w-full flex-1 items-center justify-center gap-2.5 sm:gap-2 rounded-2xl sm:rounded-xl border border-slate-200/90 bg-white/90 px-5 sm:px-4 font-display text-base sm:text-sm font-bold text-slate-700 shadow-sm backdrop-blur-sm transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900 active:scale-[0.98]",
+						className: "group flex h-[68px] sm:h-12 w-full sm:flex-1 shrink-0 items-center justify-center gap-3.5 sm:gap-2 rounded-full sm:rounded-xl border-2 sm:border border-slate-200/90 bg-white/95 px-7 sm:px-4 font-display text-lg sm:text-sm font-bold sm:font-semibold text-slate-700 shadow-md backdrop-blur-sm transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900 active:scale-[0.98]",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							className: "grid size-6 sm:size-5 place-items-center rounded-full bg-sky-50 text-sky-600 group-hover:bg-sky-100 transition-colors",
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Play, { className: "size-3 sm:size-2.5 fill-sky-600 ml-0.5" })
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Guided Tour" })]
+							className: "grid size-8 sm:size-5 place-items-center rounded-full bg-sky-100/90 text-sky-600 group-hover:bg-sky-200/90 transition-colors",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Play, { className: "size-4 sm:size-2.5 fill-sky-600 ml-0.5" })
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "tracking-wide",
+							children: "Guided Tour"
+						})]
 					})]
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -1127,7 +1100,230 @@ function Joystick() {
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-8 rounded-full bg-white/20" })
 	});
 }
-var CanvasApp = (0, import_react.lazy)(() => import("./canvas-B270KgWp.mjs"));
+function CircularPreloader() {
+	useLab((s) => s.phase);
+	const setPhase = useLab((s) => s.setPhase);
+	const { progress: rawProgress, active } = useProgress();
+	const [displayProgress, setDisplayProgress] = (0, import_react.useState)(0);
+	const [visible, setVisible] = (0, import_react.useState)(true);
+	const [statusMsg, setStatusMsg] = (0, import_react.useState)("Initializing 3D Graphics Engine...");
+	const animRef = (0, import_react.useRef)(null);
+	(0, import_react.useEffect)(() => {
+		let startTimestamp = null;
+		const duration = 1400;
+		const tick = (timestamp) => {
+			if (!startTimestamp) startTimestamp = timestamp;
+			const elapsed = timestamp - startTimestamp;
+			const timeProgress = Math.min(100, elapsed / duration * 100);
+			const target = Math.max(timeProgress, rawProgress || 0);
+			setDisplayProgress((prev) => {
+				const next = prev + (target - prev) * .15;
+				if (next >= 99.5 && target >= 100) return 100;
+				return Math.min(100, Math.max(prev, next));
+			});
+			if (elapsed < duration || active && (rawProgress || 0) < 100) animRef.current = requestAnimationFrame(tick);
+			else setDisplayProgress(100);
+		};
+		animRef.current = requestAnimationFrame(tick);
+		return () => {
+			if (animRef.current) cancelAnimationFrame(animRef.current);
+		};
+	}, [rawProgress, active]);
+	(0, import_react.useEffect)(() => {
+		if (displayProgress < 28) setStatusMsg("Initializing 3D Environment & Shaders...");
+		else if (displayProgress < 60) setStatusMsg("Loading High-Precision Robotics & Equipment...");
+		else if (displayProgress < 88) setStatusMsg("Calibrating Workstations, Lighting & Sensors...");
+		else if (displayProgress < 100) setStatusMsg("Finalizing Scene Optimization...");
+		else setStatusMsg("3D Lab Ready!");
+	}, [displayProgress]);
+	const [isFading, setIsFading] = (0, import_react.useState)(false);
+	(0, import_react.useEffect)(() => {
+		if (displayProgress >= 100) {
+			const holdTimer = setTimeout(() => {
+				setIsFading(true);
+				if (useLab.getState().phase === "boot") setPhase("welcome");
+				const hideTimer = setTimeout(() => {
+					setVisible(false);
+				}, 550);
+				return () => clearTimeout(hideTimer);
+			}, 200);
+			return () => clearTimeout(holdTimer);
+		}
+	}, [displayProgress, setPhase]);
+	if (!visible) return null;
+	const radius = 80;
+	const circumference = 2 * Math.PI * radius;
+	const strokeDashoffset = circumference - circumference * displayProgress / 100;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: `fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#050e1d] px-6 select-none transition-all duration-500 ease-out ${isFading ? "opacity-0 pointer-events-none scale-105" : "opacity-100 pointer-events-auto scale-100"}`,
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "absolute inset-0 overflow-hidden pointer-events-none",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 size-[500px] rounded-full bg-sky-500/10 blur-[120px]" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 size-[280px] rounded-full bg-blue-600/15 blur-[80px]" })]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "relative mb-8 sm:mb-12 flex items-center justify-center gap-4 rounded-2xl border border-white/10 bg-white/5 px-5 py-2.5 backdrop-blur-md shadow-2xl",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+						src: "/brand/logo.png",
+						alt: "AVP FutureTech",
+						className: "h-7 sm:h-9 w-auto object-contain brightness-110 drop-shadow-sm"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "h-6 w-px bg-white/20 sm:h-7" }),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+						src: "/brand/school-logo.png",
+						alt: SCHOOL.name,
+						className: "h-6.5 sm:h-8 w-auto object-contain brightness-110 drop-shadow-sm"
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "relative flex items-center justify-center",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "absolute rounded-full bg-sky-400/20 blur-xl transition-all duration-500",
+						style: {
+							width: `${160 + displayProgress / 100 * 40}px`,
+							height: `${160 + displayProgress / 100 * 40}px`
+						}
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", {
+						className: "size-52 sm:size-60 -rotate-90 transform drop-shadow-[0_0_25px_rgba(56,189,248,0.25)]",
+						viewBox: "0 0 200 200",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("defs", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("linearGradient", {
+								id: "circleProgressGrad",
+								x1: "0%",
+								y1: "0%",
+								x2: "100%",
+								y2: "100%",
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("stop", {
+										offset: "0%",
+										stopColor: "#38bdf8"
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("stop", {
+										offset: "50%",
+										stopColor: "#00b4d8"
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("stop", {
+										offset: "100%",
+										stopColor: "#2563eb"
+									})
+								]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("filter", {
+								id: "cyanGlow",
+								x: "-20%",
+								y: "-20%",
+								width: "140%",
+								height: "140%",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("feGaussianBlur", {
+									stdDeviation: "3",
+									result: "blur"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("feMerge", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("feMergeNode", { in: "blur" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feMergeNode", { in: "SourceGraphic" })] })]
+							})] }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("circle", {
+								cx: "100",
+								cy: "100",
+								r: "94",
+								fill: "none",
+								stroke: "rgba(56, 189, 248, 0.08)",
+								strokeWidth: "1.5"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("circle", {
+								cx: "100",
+								cy: "100",
+								r: "90",
+								fill: "none",
+								stroke: "rgba(56, 189, 248, 0.22)",
+								strokeWidth: "1.5",
+								strokeDasharray: "4 8",
+								className: "animate-spin origin-center",
+								style: { animationDuration: "14s" }
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("circle", {
+								cx: "100",
+								cy: "100",
+								r: radius,
+								fill: "none",
+								stroke: "rgba(255, 255, 255, 0.06)",
+								strokeWidth: "8"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("circle", {
+								cx: "100",
+								cy: "100",
+								r: radius,
+								fill: "none",
+								stroke: "url(#circleProgressGrad)",
+								strokeWidth: "8",
+								strokeLinecap: "round",
+								strokeDasharray: circumference,
+								strokeDashoffset,
+								filter: "url(#cyanGlow)",
+								className: "transition-all duration-150 ease-out"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("circle", {
+								cx: "100",
+								cy: "100",
+								r: "66",
+								fill: "none",
+								stroke: "rgba(56, 189, 248, 0.15)",
+								strokeWidth: "1",
+								strokeDasharray: "2 6"
+							})
+						]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "absolute inset-0 flex flex-col items-center justify-center text-center",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex items-center gap-1.5 mb-1",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+									className: "relative flex size-2",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "relative inline-flex rounded-full size-2 bg-sky-500" })]
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "text-[10px] font-mono font-semibold tracking-widest text-sky-300 uppercase",
+									children: "3D LAB"
+								})]
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex items-baseline justify-center",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "font-display text-4xl sm:text-5xl font-extrabold tracking-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]",
+									children: Math.round(displayProgress)
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "ml-0.5 text-base sm:text-lg font-bold text-sky-400 font-display",
+									children: "%"
+								})]
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "mt-1 text-[9px] font-mono tracking-widest text-slate-400 uppercase",
+								children: displayProgress >= 100 ? "READY" : "LOADING"
+							})
+						]
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "relative mt-8 sm:mt-10 flex flex-col items-center text-center max-w-sm",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "font-mono text-xs sm:text-sm font-semibold tracking-wide text-sky-400 animate-pulse",
+					children: statusMsg
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "mt-4 flex flex-col items-center gap-1",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+						className: "font-display text-xs sm:text-sm font-bold text-slate-200 tracking-wide",
+						children: SCHOOL.name
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+						className: "text-[10px] sm:text-[11px] font-medium text-slate-400 tracking-wider uppercase",
+						children: ["CBSE STEM & AI Innovation Center · ", SCHOOL.location]
+					})]
+				})]
+			})
+		]
+	});
+}
+var CanvasApp = (0, import_react.lazy)(() => import("./canvas-LjSfGeEF.mjs"));
 function Experience() {
 	const [mounted, setMounted] = (0, import_react.useState)(false);
 	const phase = useLab((s) => s.phase);
@@ -1135,19 +1331,23 @@ function Experience() {
 	const isBlurred = phase !== "explore";
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", {
 		className: "relative h-dvh w-full overflow-hidden bg-slate-900",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-			className: "h-full w-full",
-			style: {
-				filter: isBlurred ? "blur(24px) brightness(1.03) saturate(1.15)" : "none",
-				transform: isBlurred ? "scale(1.06)" : "none",
-				transition: "filter 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1)",
-				willChange: isBlurred ? "filter, transform" : "auto"
-			},
-			children: mounted ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.Suspense, {
-				fallback: null,
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CanvasApp, {})
-			}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-[#092244]" })
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Overlay, {})]
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "h-full w-full",
+				style: {
+					filter: isBlurred ? "blur(24px) brightness(1.03) saturate(1.15)" : "none",
+					transform: isBlurred ? "scale(1.06)" : "none",
+					transition: "filter 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1)",
+					willChange: isBlurred ? "filter, transform" : "auto"
+				},
+				children: mounted ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.Suspense, {
+					fallback: null,
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CanvasApp, {})
+				}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-[#092244]" })
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Overlay, {}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircularPreloader, {})
+		]
 	});
 }
 var routes_exports = /* @__PURE__ */ __exportAll({ component: () => Home });

@@ -24,16 +24,9 @@ export function Overlay() {
   const phase = useLab((s) => s.phase);
   const setPhase = useLab((s) => s.setPhase);
 
-  useEffect(() => {
-    const t = window.setTimeout(() => {
-      if (useLab.getState().phase === "boot") setPhase("welcome");
-    }, 900);
-    return () => window.clearTimeout(t);
-  }, [setPhase]);
-
   return (
     <>
-      {phase !== "explore" && (
+      {phase === "welcome" && (
         <div
           className="pointer-events-auto fixed inset-0 z-40 flex items-center justify-center p-3.5 sm:p-6 md:p-8 overflow-hidden select-none transition-all duration-500"
           style={{
@@ -75,16 +68,6 @@ export function Overlay() {
               />
             </div>
 
-            {/* Academic Collaboration Badge */}
-            <div className="mb-2.5 sm:mb-3 inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-sky-200/80 bg-gradient-to-r from-sky-50 to-blue-50/80 px-3 sm:px-3.5 py-1 text-[10px] sm:text-[11px] font-semibold tracking-wider text-sky-800 uppercase shadow-xs">
-              <span className="flex items-center gap-1.5">
-                <span className="inline-block size-1.5 rounded-full bg-sky-500 animate-pulse" />
-                Academic Partnership
-              </span>
-              <span className="text-sky-300">•</span>
-              <span className="text-slate-600 font-medium">{SCHOOL.affiliation}</span>
-            </div>
-
             <h1 className="font-display text-xl font-extrabold tracking-tight text-[#092244] sm:text-3xl md:text-[34px] leading-tight">
               {SCHOOL.name}
             </h1>
@@ -95,36 +78,27 @@ export function Overlay() {
               Hands-on Learning · Real-World Skills · Innovation & Creativity · Future Ready
             </p>
 
-            {phase === "boot" ? (
-              <div className="mt-6 sm:mt-7 flex flex-col items-center gap-2">
-                <div className="h-1.5 w-48 overflow-hidden rounded-full bg-slate-100 p-0.5 border border-slate-200">
-                  <div className="h-full w-2/3 animate-pulse rounded-full bg-gradient-to-r from-sky-500 to-blue-600" />
+            <div className="mt-6 sm:mt-7 flex w-full max-w-md flex-col gap-4 sm:gap-2.5 sm:flex-row">
+              <button
+                type="button"
+                onClick={() => setPhase("explore")}
+                className="group flex h-[68px] sm:h-12 w-full sm:flex-1 shrink-0 items-center justify-center gap-3.5 sm:gap-2 rounded-full sm:rounded-xl bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 px-7 sm:px-5 font-display text-lg sm:text-sm font-bold sm:font-semibold text-white shadow-xl shadow-sky-500/35 transition-all duration-200 hover:shadow-2xl hover:shadow-sky-500/45 hover:brightness-105 active:scale-[0.98]"
+              >
+                <Compass className="size-6 sm:size-4 transition-transform duration-300 group-hover:rotate-45" />
+                <span className="tracking-wide">Enter 3D Lab</span>
+                <ArrowRight className="size-5 sm:size-4 text-white/90 transition-transform duration-200 group-hover:translate-x-0.5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => useLab.getState().startTour()}
+                className="group flex h-[68px] sm:h-12 w-full sm:flex-1 shrink-0 items-center justify-center gap-3.5 sm:gap-2 rounded-full sm:rounded-xl border-2 sm:border border-slate-200/90 bg-white/95 px-7 sm:px-4 font-display text-lg sm:text-sm font-bold sm:font-semibold text-slate-700 shadow-md backdrop-blur-sm transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900 active:scale-[0.98]"
+              >
+                <div className="grid size-8 sm:size-5 place-items-center rounded-full bg-sky-100/90 text-sky-600 group-hover:bg-sky-200/90 transition-colors">
+                  <Play className="size-4 sm:size-2.5 fill-sky-600 ml-0.5" />
                 </div>
-                <span className="text-[11px] font-medium tracking-wider text-slate-400 uppercase">Preparing 3D Lab...</span>
-              </div>
-            ) : (
-              <div className="mt-5 sm:mt-7 flex w-full max-w-md flex-col gap-3 sm:gap-2.5 sm:flex-row">
-                <button
-                  type="button"
-                  onClick={() => setPhase("explore")}
-                  className="group flex h-14 sm:h-12 w-full flex-1 items-center justify-center gap-2.5 sm:gap-2 rounded-2xl sm:rounded-xl bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 px-6 sm:px-5 font-display text-base sm:text-sm font-bold text-white shadow-lg shadow-sky-500/25 transition-all duration-200 hover:shadow-xl hover:shadow-sky-500/40 hover:brightness-105 active:scale-[0.98]"
-                >
-                  <Compass className="size-5 sm:size-4 transition-transform duration-300 group-hover:rotate-45" />
-                  <span>Enter 3D Lab</span>
-                  <ArrowRight className="size-5 sm:size-4 text-white/80 transition-transform duration-200 group-hover:translate-x-0.5" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => useLab.getState().startTour()}
-                  className="group flex h-14 sm:h-12 w-full flex-1 items-center justify-center gap-2.5 sm:gap-2 rounded-2xl sm:rounded-xl border border-slate-200/90 bg-white/90 px-5 sm:px-4 font-display text-base sm:text-sm font-bold text-slate-700 shadow-sm backdrop-blur-sm transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900 active:scale-[0.98]"
-                >
-                  <div className="grid size-6 sm:size-5 place-items-center rounded-full bg-sky-50 text-sky-600 group-hover:bg-sky-100 transition-colors">
-                    <Play className="size-3 sm:size-2.5 fill-sky-600 ml-0.5" />
-                  </div>
-                  <span>Guided Tour</span>
-                </button>
-              </div>
-            )}
+                <span className="tracking-wide">Guided Tour</span>
+              </button>
+            </div>
             <div className="mt-5 sm:mt-6 flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 text-[10px] sm:text-[11px] text-slate-500">
               <span className="rounded-full border border-slate-200/70 bg-slate-50/80 px-2.5 py-0.5 font-medium shadow-2xs">
                 10 Specialized Zones

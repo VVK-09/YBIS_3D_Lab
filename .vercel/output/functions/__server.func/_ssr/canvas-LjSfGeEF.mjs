@@ -1,7 +1,7 @@
 import { i as __toESM } from "../_runtime.mjs";
-import { S as require_react, _ as SRGBColorSpace, a as useCursor, c as useThree, d as CanvasTexture, f as CylinderGeometry, g as RepeatWrapping, h as PlaneGeometry, i as Billboard, m as Object3D, n as OrbitControls, o as Canvas, p as MeshStandardMaterial, r as useTexture, s as useFrame, t as ContactShadows, u as BoxGeometry, v as SphereGeometry, x as require_jsx_runtime, y as Vector3 } from "../_libs/@react-three/drei+[...].mjs";
-import { a as TABLE_LAYOUT, i as ROOM, n as useLab, o as ZONES, r as COLLIDERS } from "./routes-DACwywu8.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/canvas-B270KgWp.js
+import { C as require_react, S as require_jsx_runtime, _ as PlaneGeometry, b as SphereGeometry, c as Canvas, f as BoxGeometry, g as Object3D, h as MeshStandardMaterial, i as Billboard, l as useFrame, m as CylinderGeometry, n as OrbitControls, p as CanvasTexture, r as useTexture, s as useCursor, t as ContactShadows, u as useThree, v as RepeatWrapping, x as Vector3, y as SRGBColorSpace } from "../_libs/@react-three/drei+[...].mjs";
+import { a as TABLE_LAYOUT, i as ROOM, n as useLab, o as ZONES, r as COLLIDERS } from "./routes-CqfCkJzx.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/canvas-LjSfGeEF.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var NAVY = "#092244";
@@ -1061,7 +1061,7 @@ function Zone1VisionAiShowcase({ map }) {
 						0
 					],
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("boxGeometry", { args: [
-						2.55,
+						2.25,
 						.95,
 						.02
 					] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("meshStandardMaterial", {
@@ -1074,7 +1074,7 @@ function Zone1VisionAiShowcase({ map }) {
 						.18,
 						.015
 					],
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("planeGeometry", { args: [2.3, .44] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("meshStandardMaterial", {
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("planeGeometry", { args: [2.15, .44] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("meshStandardMaterial", {
 						map: bannerTex,
 						emissive: "#ffffff",
 						emissiveMap: bannerTex,
@@ -3809,7 +3809,7 @@ function Zone2PrintShowcase() {
 							0,
 							0
 						],
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("planeGeometry", { args: [2.55, 1.15] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("meshStandardMaterial", {
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("planeGeometry", { args: [2, 1.15] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("meshStandardMaterial", {
 							color: "#f1f5f9",
 							roughness: .5
 						})]
@@ -3820,7 +3820,7 @@ function Zone2PrintShowcase() {
 							0,
 							.005
 						],
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("planeGeometry", { args: [2.57, 1.17] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("meshStandardMaterial", {
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("planeGeometry", { args: [2.02, 1.17] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("meshStandardMaterial", {
 							color: "#38bdf8",
 							emissive: "#38bdf8",
 							emissiveIntensity: .4,
@@ -3834,7 +3834,7 @@ function Zone2PrintShowcase() {
 							.28,
 							.012
 						],
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("planeGeometry", { args: [2.3, .44] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("meshStandardMaterial", {
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("planeGeometry", { args: [1.92, .44] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("meshStandardMaterial", {
 							map: bannerTex,
 							emissive: "#ffffff",
 							emissiveMap: bannerTex,
@@ -4215,7 +4215,7 @@ function Zone3BreakBuildShowcase() {
 						0
 					],
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("boxGeometry", { args: [
-						2.55,
+						2,
 						.95,
 						.02
 					] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("meshStandardMaterial", {
@@ -4228,7 +4228,7 @@ function Zone3BreakBuildShowcase() {
 						.18,
 						.015
 					],
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("planeGeometry", { args: [2.3, .44] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("meshStandardMaterial", {
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("planeGeometry", { args: [1.92, .44] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("meshStandardMaterial", {
 						map: bannerTex,
 						emissive: "#ffffff",
 						emissiveMap: bannerTex,
@@ -5242,7 +5242,7 @@ function Zone4RoboticsShowcase() {
 		position: [
 			2.45,
 			0,
-			-3.62
+			-3.55
 		],
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("group", {
@@ -5258,7 +5258,7 @@ function Zone4RoboticsShowcase() {
 						0
 					],
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("boxGeometry", { args: [
-						2.55,
+						2.4,
 						.95,
 						.02
 					] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("meshStandardMaterial", {
@@ -5269,9 +5269,9 @@ function Zone4RoboticsShowcase() {
 					position: [
 						0,
 						.18,
-						.015
+						.018
 					],
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("planeGeometry", { args: [2.3, .44] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("meshStandardMaterial", {
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("planeGeometry", { args: [2.24, .44] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("meshStandardMaterial", {
 						map: bannerTex,
 						emissive: "#ffffff",
 						emissiveMap: bannerTex,

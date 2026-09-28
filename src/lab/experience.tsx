@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import { Overlay } from "./overlay";
 import { useLab } from "./store";
+import { CircularPreloader } from "./preloader";
 
 const CanvasApp = lazy(() => import("./canvas"));
 
@@ -31,6 +32,7 @@ export function Experience() {
         )}
       </div>
       <Overlay />
+      <CircularPreloader />
     </main>
   );
 }

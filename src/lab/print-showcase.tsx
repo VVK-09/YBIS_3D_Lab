@@ -1374,12 +1374,12 @@ export function Zone2PrintShowcase() {
       <group position={[0, 1.85, -0.58]}>
         {/* Clean Light Architectural Back Wall Panel */}
         <mesh position={[0, 0, 0]}>
-          <planeGeometry args={[2.55, 1.15]} />
+          <planeGeometry args={[2.0, 1.15]} />
           <meshStandardMaterial color="#f1f5f9" roughness={0.5} />
         </mesh>
         {/* Cyan Glowing Accent Border */}
         <mesh position={[0, 0, 0.005]}>
-          <planeGeometry args={[2.57, 1.17]} />
+          <planeGeometry args={[2.02, 1.17]} />
           <meshStandardMaterial
             color="#38bdf8"
             emissive="#38bdf8"
@@ -1390,7 +1390,7 @@ export function Zone2PrintShowcase() {
         </mesh>
         {/* High-Impact Overhead Lab Banner Sign */}
         <mesh position={[0, 0.28, 0.012]}>
-          <planeGeometry args={[2.3, 0.44]} />
+          <planeGeometry args={[1.92, 0.44]} />
           <meshStandardMaterial
             map={bannerTex}
             emissive="#ffffff"

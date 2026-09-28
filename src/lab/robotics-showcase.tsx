@@ -201,15 +201,15 @@ export function Zone4RoboticsShowcase() {
   const bannerTex = useMemo(() => makeZone4BannerTexture(), []);
 
   return (
-    <group position={[2.45, 0, -3.62]}>
+    <group position={[2.45, 0, -3.55]}>
       {/* 1. Architectural Back Wall Cladding & Overhead Lightbox */}
       <group position={[0, 1.95, -0.58]}>
         <mesh position={[0, 0, 0]}>
-          <boxGeometry args={[2.55, 0.95, 0.02]} />
+          <boxGeometry args={[2.4, 0.95, 0.02]} />
           <meshStandardMaterial color="#f1f5f9" roughness={0.5} />
         </mesh>
-        <mesh position={[0, 0.18, 0.015]}>
-          <planeGeometry args={[2.3, 0.44]} />
+        <mesh position={[0, 0.18, 0.018]}>
+          <planeGeometry args={[2.24, 0.44]} />
           <meshStandardMaterial
             map={bannerTex}
             emissive="#ffffff"
